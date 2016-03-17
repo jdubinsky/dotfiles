@@ -78,7 +78,6 @@ set directory=~/.vim/swap/
 " auto change dir
 set autochdir
 
-set path=.,/usr/include,/Users/tophat/projects/THM/frontend_v2/js/**,,
 ca F find
 
 execute pathogen#infect()
