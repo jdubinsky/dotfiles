@@ -1,45 +1,48 @@
-" Don't try to be vi compatible
-set nocompatible
+augroup AutoReloadVimRC
+  au!
+  "automatically reload vimrc when it's saved "credits: http://vimbits.com/bits/128
+  au BufWritePost .vimrc so ~/.vimrc
+augroup END
 
-" Helps force plugins to load correctly when it is turned back on below
-filetype off
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-let g:syntastic_javascript_checkers = ['eslint']
+" Plugins
+call plug#begin('~/.vim/plugged')
 
-let g:jsx_ext_required = 0
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'mhartington/oceanic-next'
+Plug 'sheerun/vim-polyglot'
+Plug 'Yggdroot/LeaderF'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
+call plug#end()
+" End plugins
 
-" Turn on syntax highlighting
-syntax on
-
-" For plugins to load correctly
 filetype plugin indent on
+syntax enable
 
-" Show line numbers
-set number
+set paste
+set ignorecase
 
-" Disable backup files
-set nobackup
+set t_Co=256
 
-" Set to current directory
-set autochdir
+let mapleader = "\<Space>"
 
-" Whitespace
-set wrap
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set noshiftround
+" colorscheme OceanicNext
+let g:airline_theme='oceanicnext'
 
-colorscheme desert
+let g:deoplete#enable_at_startup = 1
 
-ca F find
-
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
-
-execute pathogen#infect()
-
+" Tab complete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
