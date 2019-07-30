@@ -12,8 +12,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-
-Plug 'mxw/vim-jsx'
+Plug 'HerringtonDarkholme/deoplete-typescript'
 
 Plug 'tpope/vim-fugitive'
 
@@ -21,22 +20,25 @@ Plug 'scrooloose/nerdcommenter'
 
 Plug 'w0rp/ale'
 
+Plug 'ludovicchabant/vim-gutentags'
+
 call plug#end()
 
 map <c-p> :GFiles<CR>
 
-" Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
-endif
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
 set expandtab
+set tabstop=4
+set shiftwidth=4
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 expandtab
+autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 expandtab
+autocmd Filetype typescript setlocal expandtab tabstop=2 shiftwidth=2 expandtab
+autocmd Filetype typescript.tsx setlocal expandtab tabstop=2 shiftwidth=2 expandtab
+autocmd Filetype scss setlocal expandtab tabstop=2 shiftwidth=2 expandtab
 
 set ignorecase
 set smartcase
@@ -53,21 +55,25 @@ set autochdir
 
 set autoread
 
+set paste
+
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
+
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
 syntax on
 
 nnoremap <esc> :noh<CR><esc>
 
+nnoremap <LocalLeader>p :Ag<CR>
 " Theme
 syntax enable
 colorscheme OceanicNext
 
 let g:airline_theme='oceanicnext'
 
-let mapleader = "\<Space>"
-
-set wildignore+=*/.git/*,*/tmp/*,*.swp
+set wildignore+=*/.git/*,*/tmp/*,*.swp,*.mypy_cache/*,node_modules/*
 
 let g:deoplete#enable_at_startup = 1
 
@@ -81,7 +87,11 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 set completeopt=noinsert,menuone,noselect
 
-let b:ale_linters = ['pyflakes', 'flake8', 'pylint']
+let b:ale_linters = ['flake8', 'mypy']
 let b:ale_fixers = {'javascript.jsx': ['prettier'], 'css': ['prettier'], 'javascript': ['prettier']}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma --no-semi'
+let g:airline#extensions#ale#enabled = 1
+
+let g:python_host_skip_check=1
+let g:python3_host_prog = '/Users/jacobdubinsky/.pyenv/shims/python3'
