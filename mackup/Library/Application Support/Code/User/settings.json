@@ -1,0 +1,32 @@
+{
+    "workbench.colorTheme": "Monokai",
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "c", "i"],
+            "commands": ["editor.action.commentLine"]
+        },
+        {
+            "before": ["<leader>", "f"],
+            "commands": ["editor.action.referenceSearch.trigger"]
+        },
+        {
+            "before": ["<leader>", "["],
+            "commands": ["editor.action.revealDefinition"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "c", "i"],
+            "commands": ["editor.action.commentLine"]
+        }
+    ],
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "editor.minimap.enabled": false,
+    "terminal.external.osxExec": "iTerm.App",
+    "search.location": "panel"
+}

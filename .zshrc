@@ -83,6 +83,7 @@ plugins=(
     npx
     vi-mode
     zsh-completions
+    zsh-navigation-tools
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -93,18 +94,18 @@ source ~/.fzf.zsh
 
 export PATH=/usr/local/bin:/Users/jdubinsky/.nvm/versions/node/v/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jacobdubinsky/.pyenv:$HOME/.yarn/bin:$PATH
 
-export TERM=xterm-256color
+#export TERM=xterm-256color
 
 alias ls='ls -lGH'
 alias rmpyc="find . -name '.git' -prune -o -name '*.pyc' -exec rm {} \;"
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 
-alias tmux='tmux -2'
-alias tmn='tmux new -s'
-alias tma='tmux a -t'
-alias tmls='tmux ls'
-alias tmk='tmux kill-session -t'
+#alias tmux='tmux -2'
+#alias tmn='tmux new -s'
+#alias tma='tmux a -t'
+#alias tmls='tmux ls'
+#alias tmk='tmux kill-session -t'
 
 eval "$(pyenv init -)"
 
