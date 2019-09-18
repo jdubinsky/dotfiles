@@ -3,22 +3,44 @@
     "vim.leader": "<space>",
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": ["<leader>", "c", "i"],
-            "commands": ["editor.action.commentLine"]
+            "before": [
+                "<leader>",
+                "c",
+                "i"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
         },
         {
-            "before": ["<leader>", "f"],
-            "commands": ["editor.action.referenceSearch.trigger"]
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "commands": [
+                "editor.action.referenceSearch.trigger"
+            ]
         },
         {
-            "before": ["<leader>", "["],
-            "commands": ["editor.action.revealDefinition"]
+            "before": [
+                "<leader>",
+                "["
+            ],
+            "commands": [
+                "editor.action.revealDefinition"
+            ]
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {
-            "before": ["<leader>", "c", "i"],
-            "commands": ["editor.action.commentLine"]
+            "before": [
+                "<leader>",
+                "c",
+                "i"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
         }
     ],
     "editor.quickSuggestions": {
@@ -28,5 +50,20 @@
     },
     "editor.minimap.enabled": false,
     "terminal.external.osxExec": "iTerm.App",
-    "search.location": "panel"
+    "search.location": "panel",
+    "terminal.integrated.rendererType": "dom",
+    "editor.formatOnSave": true,
+    "[javascriptreact]": {
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.formatOnSave": true
+    },
+    "editor.acceptSuggestionOnCommitCharacter": false
 }
