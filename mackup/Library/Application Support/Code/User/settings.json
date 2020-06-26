@@ -50,20 +50,56 @@
     },
     "editor.minimap.enabled": false,
     "terminal.external.osxExec": "iTerm.App",
-    "search.location": "panel",
     "terminal.integrated.rendererType": "dom",
-    "editor.formatOnSave": true,
-    "[javascriptreact]": {
+    "editor.formatOnSave": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "python.linting.flake8Args": [
+        "--max-line-length=88"
+    ],
+    "python.formatting.provider": "black",
+    "python.venvPath": "/Users/jacobdubinsky/.local/share/virtualenvs/",
+    "python.jediEnabled": true,
+    "[python]": {
+        "editor.tabSize": 4,
         "editor.formatOnSave": true
     },
-    "[typescript]": {
-        "editor.formatOnSave": true
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[typescriptreact]": {
-        "editor.formatOnSave": true
+    "breadcrumbs.enabled": true,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "[javascript]": {
-        "editor.formatOnSave": true
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "editor.acceptSuggestionOnCommitCharacter": false
+    "workbench.editor.showTabs": false,
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "window.zoomLevel": 0,
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "terraform.indexing": {
+        "enabled": false,
+        "liveIndexing": false,
+        "delay": 500,
+        "exclude": [
+            ".terraform/**/*",
+            "**/.terraform/**/*"
+        ]
+    },
+    "terraform.languageServer": {
+        "external": true,
+        "args": [
+            "serve"
+        ]
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "python.languageServer": "Jedi"
 }

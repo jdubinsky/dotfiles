@@ -1,0 +1,8 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Jacob Dubinsky
+	email = jacob@ada.support
+[push]
+	default = current
+[url "git@github.com:"]
+	insteadOf = https://github.com/
