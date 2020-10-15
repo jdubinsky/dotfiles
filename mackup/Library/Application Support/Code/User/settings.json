@@ -75,10 +75,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "workbench.editor.showTabs": false,
-    "[typescript]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "window.zoomLevel": 0,
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -98,8 +94,6 @@
             "serve"
         ]
     },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "python.languageServer": "Jedi"
+    "python.languageServer": "Jedi",
+    "ruby.useLanguageServer": true
 }
