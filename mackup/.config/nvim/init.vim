@@ -4,7 +4,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mhartington/oceanic-next'
-Plug 'overcache/NeoSolarized'
 Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ludovicchabant/vim-gutentags'
@@ -29,7 +28,6 @@ syntax enable
 set number
 
 set noswapfile
-set autochdir
 set ignorecase
 
 set termguicolors
@@ -82,12 +80,6 @@ let g:gutentags_file_list_command = {
       \ }
 let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 let g:gutentags_generate_on_new = 1
-
-"let g:ale_linters = {
-      "\   'ruby': ['standardrb', 'rubocop'],
-      "\   'python': ['flake8', 'pylint'],
-      "\   'javascript': ['eslint'],
-      "\}
 
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
