@@ -14,6 +14,22 @@ alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
+plugins=(
+    git
+    osx
+    python
+    yarn
+    tmux
+    tmuxinator
+    npm
+    npx
+    cp
+    rails
+    ruby
+    vi-mode
+    zsh-navigation-tools
+)
+
 ggrep() {
   git grep "$1"  -- './*' ":!$2"
 }
