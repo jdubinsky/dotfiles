@@ -10,6 +10,8 @@ if ! command -v fzf &> /dev/null; then
   sudo apt-get install -y fzf
 fi
 
+mkdir -p ~/.config/nvim/
+
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/mackup/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
