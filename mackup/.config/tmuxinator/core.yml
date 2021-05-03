@@ -1,7 +1,7 @@
-# /Users/jdubinsky/.config/tmuxinator/product-sync.yml
+# /Users/jdubinsky/.config/tmuxinator/core.yml
 
-name: product-sync
-root: /Users/jdubinsky/src/github.com/Shopify/product-sync/
+name: core
+root: /Users/jdubinsky/src/github.com/Shopify/shopify/
 
 # Optional tmux socket
 # socket_name: foo
