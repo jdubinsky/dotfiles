@@ -28,3 +28,6 @@ ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 
 # install neovim plugins
 nvim --headless +PlugInstall +qall
+
+# reload with plugins
+source ~/.zshrc
