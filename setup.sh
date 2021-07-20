@@ -31,6 +31,7 @@ mkdir -p ~/.config/nvim/
 # dotfiles
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/mackup/.gitconfig ~/.gitconfig
+ln -sf ~/dotfiles/mackup/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 
 # install neovim plugins
