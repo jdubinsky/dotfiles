@@ -1,6 +1,23 @@
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+
+plugins=(
+    git
+    osx
+    docker
+    docker-compose
+    python
+    tmux
+    tmuxinator
+    cp
+    rails
+    ruby
+    vi-mode
+    zsh-navigation-tools
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -13,22 +30,6 @@ alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
-
-plugins=(
-    git
-    osx
-    python
-    yarn
-    tmux
-    tmuxinator
-    npm
-    npx
-    cp
-    rails
-    ruby
-    vi-mode
-    zsh-navigation-tools
-)
 
 ggrep() {
   git grep "$1"  -- './*' ":!$2"

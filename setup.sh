@@ -1,7 +1,9 @@
 #!/bin/zsh
 
 # install required packages
-sudo apt-get install -y neovim
+wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+./nvim.appimage --appimage-extract
+alias nvim="~/dotfiles/squashfs-root/usr/bin/nvim"
 
 if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
@@ -13,6 +15,11 @@ fi
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# gems
+gem install solargraph
+gem install ripper-tags
+gem install sorbet
 
 # vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \

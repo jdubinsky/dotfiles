@@ -6,8 +6,6 @@
 	default = current
 [core]
 	commitGraph = true
-[diff]
-	algorithm = patience
 [gc]
 	writeCommitGraph = true
 [protocol]
@@ -22,3 +20,10 @@
 	helper = store --file /opt/dev/var/private/git_credential_store
 [alias]
 	srbgrep = "!git grep \"$@\" -- \"${GIT_PREFIX}/*\" #"
+[difftool]
+	prompt = true
+[diff]
+	tool = nvimdiff
+	algorithm = patience
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""

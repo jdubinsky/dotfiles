@@ -5,7 +5,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-sleuth'
@@ -20,7 +19,14 @@ Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 Plug 'shopify/shadowenv.vim'
 Plug 'jparise/vim-graphql'
-Plug 'Shopify/vim-sorbet', { 'branch': 'master' }
+
+" {{{ lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'onsails/lspkind-nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-compe'
+" lsp }}}
 
 call plug#end()
 
@@ -70,7 +76,9 @@ nnoremap <esc> :noh<CR><esc>
 nnoremap <LocalLeader>p :Ag<CR>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+set completeopt=menuone,noselect
+set shortmess+=c
+
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 noremap <Leader>Y "+y
@@ -111,7 +119,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
-  \   'git grep --line-number -- '.shellescape(<q-args>).' -- ":!*.rbi"', 0,
+  \   'git grep --line-number -- '.shellescape(<q-args>).' -- ":!*.rbi" ":!*test*" ":!*.graphql"', 0,
   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
 command! -bang -nargs=* GFiles2
@@ -122,3 +130,70 @@ command! -bang -nargs=* GFiles2
 map <c-p> :GFiles2<CR>
 
 nnoremap <LocalLeader>g :GGrep<CR>
+
+lua << EOF
+require('lspkind').init({})
+
+local lspconfig = require('lspconfig')
+local saga = require('lspsaga')
+
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  resolve_timeout = 800;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = {
+    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  };
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+    luasnip = true;
+  };
+}
+
+lspconfig.solargraph.setup {
+  settings = {
+    solargraph = {
+      diagnostics = true
+    }
+  },
+}
+--  root_dir = function(fname)
+--    return vim.fn.getcwd()
+--  end,
+--}
+
+lspconfig.sorbet.setup {}
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.diagnostic.on_publish_diagnostics, {
+   -- Enable underline, use default values
+   underline = true,
+   virtual_text = {
+     spacing = 2,
+   },
+ }
+)
+
+saga.init_lsp_saga()
+EOF
