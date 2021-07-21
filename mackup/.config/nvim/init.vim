@@ -26,6 +26,8 @@ Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
+Plug 'folke/trouble.nvim'
+Plug 'folke/lsp-colors.nvim'
 " lsp }}}
 
 call plug#end()
@@ -130,6 +132,7 @@ command! -bang -nargs=* GFiles2
 map <c-p> :GFiles2<CR>
 
 nnoremap <LocalLeader>g :GGrep<CR>
+nnoremap <LocalLeader>t :TroubleToggle<CR>
 
 lua << EOF
 require('lspkind').init({})
@@ -179,7 +182,7 @@ lspconfig.solargraph.setup {
   },
 }
 
-lspconfig.tsserver.setup{}
+lspconfig.tsserver.setup {}
 
 lspconfig.graphql.setup{}
 
@@ -237,5 +240,7 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
  }
 )
 
-saga.init_lsp_saga()
+require("trouble").setup {}
+
+-- saga.init_lsp_saga()
 EOF
