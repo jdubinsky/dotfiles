@@ -178,12 +178,54 @@ lspconfig.solargraph.setup {
     }
   },
 }
---  root_dir = function(fname)
---    return vim.fn.getcwd()
---  end,
---}
 
-lspconfig.sorbet.setup {}
+lspconfig.tsserver.setup{}
+
+lspconfig.graphql.setup{}
+
+lspconfig.sorbet.setup{}
+
+lspconfig.diagnosticls.setup{
+  filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx" },
+  init_options = {
+    filetypes = {
+      javascript = "eslint",
+      ["javascript.jsx"] = "eslint",
+      javascriptreact = "eslint",
+      typescriptreact = "eslint",
+      typescript = "eslint",
+      ["eslint.tsx"] = "eslint",
+    },
+    linters = {
+      eslint = {
+        sourceName = "eslint",
+        command = "./node_modules/.bin/eslint",
+        rootPatterns = { ".git" },
+        debounce = 100,
+        args = {
+          "--stdin",
+          "--stdin-filename",
+          "%filepath",
+          "--format",
+          "json",
+        },
+        parseJson = {
+          errorsRoot = "[0].messages",
+          line = "line",
+          column = "column",
+          endLine = "endLine",
+          endColumn = "endColumn",
+          message = "${message} [${ruleId}]",
+          security = "severity",
+        };
+        securities = {
+          [2] = "error",
+          [1] = "warning"
+        }
+      }
+    }
+  }
+}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics, {

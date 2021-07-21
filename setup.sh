@@ -21,6 +21,11 @@ gem install solargraph
 gem install ripper-tags
 gem install sorbet
 
+# lsp
+npm install -g diagnostic-languageserver
+npm install -g typescript-language-server
+npm install -g graphql-language-service-cli
+
 # vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
