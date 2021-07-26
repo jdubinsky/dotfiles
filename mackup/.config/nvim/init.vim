@@ -17,7 +17,6 @@ Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
-Plug 'shopify/shadowenv.vim'
 Plug 'jparise/vim-graphql'
 
 " {{{ lsp
