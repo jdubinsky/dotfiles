@@ -2,6 +2,7 @@
 
 # install required packages
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
 alias nvim="~/dotfiles/squashfs-root/usr/bin/nvim"
 
@@ -22,9 +23,9 @@ gem install ripper-tags
 gem install sorbet
 
 # lsp
-npm install -g diagnostic-languageserver
-npm install -g typescript-language-server
-npm install -g graphql-language-service-cli
+sudo npm install -g diagnostic-languageserver
+sudo npm install -g typescript-language-server
+sudo npm install -g graphql-language-service-cli
 
 # vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
