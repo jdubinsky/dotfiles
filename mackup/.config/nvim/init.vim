@@ -7,23 +7,23 @@ Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-sleuth'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-sleuth'
+"Plug 'vim-ruby/vim-ruby'
+"Plug 'tpope/vim-rails'
 Plug 'tpope/vim-endwise'
-Plug 'alvan/vim-closetag'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'leafgarland/typescript-vim'
-Plug 'pangloss/vim-javascript'
+"Plug 'alvan/vim-closetag'
+"Plug 'peitalin/vim-jsx-typescript'
+"Plug 'leafgarland/typescript-vim'
+"Plug 'pangloss/vim-javascript'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
-Plug 'jparise/vim-graphql'
+"Plug 'jparise/vim-graphql'
 
 " {{{ lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'glepnir/lspsaga.nvim'
+"Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'folke/trouble.nvim'
 Plug 'folke/lsp-colors.nvim'
@@ -131,13 +131,12 @@ command! -bang -nargs=* GFiles2
 map <c-p> :GFiles2<CR>
 
 nnoremap <LocalLeader>g :GGrep<CR>
-nnoremap <LocalLeader>t :TroubleToggle<CR>
+nnoremap <LocalLeader>r :TroubleToggle<CR>
 
 lua << EOF
 require('lspkind').init({})
 
 local lspconfig = require('lspconfig')
-local saga = require('lspsaga')
 
 require'compe'.setup {
   enabled = true;
@@ -240,6 +239,4 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 )
 
 require("trouble").setup {}
-
--- saga.init_lsp_saga()
 EOF

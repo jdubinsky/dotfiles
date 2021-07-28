@@ -22,6 +22,7 @@ gem install solargraph
 gem install ripper-tags
 gem install sorbet
 gem install neovim
+gem install activesupport
 
 # lsp
 sudo npm install -g diagnostic-languageserver
@@ -37,7 +38,6 @@ mkdir -p ~/.config/nvim/
 
 # dotfiles
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
-ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 
 # install neovim plugins

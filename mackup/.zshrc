@@ -49,11 +49,36 @@ export EDITOR=nvim
 #   eval "$(pyenv init -)"
 # fi
 
+spinservice() {
+    spin info fqdn|awk -F '.' '{print $1}'
+}
+
+spinworkspace() {
+    jq -j --exit-status .default_workspace_group ~/.spin/state.spin.up.dev.json
+}
+
+spinhost() {
+    [[ $# -lt 2 ]] || { echo "usage: ${FUNCNAME[0]} [service]">&2 ; return; }
+    local service=${1-$(spinservice)}
+    local workspace="$(spinworkspace)"
+    if ! spin list --output json|jq -j --exit-status --arg workspace "${workspace}" --arg service "${service}" '.Workspaces[] | select(.Name==$workspace).Services[$service].FQDN | values' ; then
+        echo "Service '${service}.${workspace}' not found">&2
+    fi
+}
+
+spinmount() {
+    [[ $# -lt 2 ]] || { echo "usage: ${FUNCNAME[0]} [service]">&2 ; return; }
+    local service=${1-$(spinservice)}
+    local localPath="${HOME}/spin/${service}"
+    local remotePath="/src/github.com/shopify/${service}"
+    local host="$(spinhost "${service}")"
+    [[ -n "${host}" ]] || return
+    local remoteUrl="${host}:${remotePath}"
+    mkdir -p "${localPath}"
+    umount -f "${localPath}" 2>/dev/null
+    echo "Mounting ${remoteUrl} to ${localPath}"
+    sshfs "${remoteUrl}" "${localPath}"
+}
+
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/projects/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/projects/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/projects/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/projects/google-cloud-sdk/completion.zsh.inc"; fi
