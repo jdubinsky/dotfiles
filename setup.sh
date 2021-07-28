@@ -4,7 +4,7 @@
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
-alias nvim="~/dotfiles/squashfs-root/usr/bin/nvim"
+sudo cp ~/dotfiles/squashfs-root/usr/bin/nvim /usr/bin/
 
 if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
