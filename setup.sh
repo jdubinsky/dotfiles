@@ -21,6 +21,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 gem install solargraph
 gem install ripper-tags
 gem install sorbet
+gem install neovim
 
 # lsp
 sudo npm install -g diagnostic-languageserver
@@ -36,8 +37,7 @@ mkdir -p ~/.config/nvim/
 
 # dotfiles
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
-ln -sf ~/dotfiles/mackup/.gitconfig ~/.gitconfig
-ln -sf ~/dotfiles/mackup/.gitignore ~/.gitignore
+ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 
 # install neovim plugins
