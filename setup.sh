@@ -1,11 +1,22 @@
 #!/bin/zsh
 
-# install required packages
+update_nvim_flag=false;
+
+zparseopts -E -D -- -update-nvim=update_nvim_flag
+
+# install nvim nightly
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
 sudo cp ~/dotfiles/squashfs-root/usr/bin/nvim /usr/bin/
 
+if [ -n "$update_nvim_flag" ]
+then
+    echo "nvim udpated, exiting";
+    exit;
+fi
+
+# install required packages
 if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
 fi
