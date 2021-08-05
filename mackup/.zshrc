@@ -28,6 +28,11 @@ source ~/.fzf.zsh
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
+if [ -n $SPIN ]
+then
+    alias shopcd='cd /src/github.com/shopify/shopify'
+    alias nvim=/home/spin/dotfiles/squashfs-root/usr/bin/nvim
+fi
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 

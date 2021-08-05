@@ -8,10 +8,10 @@ zparseopts -E -D -- -update-nvim=update_nvim_flag
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
-sudo cp ~/dotfiles/squashfs-root/usr/bin/nvim /usr/bin/
 
 if [ -n "$update_nvim_flag" ]
 then
+    source ~/.zshrc
     echo "nvim udpated, exiting";
     exit;
 fi
