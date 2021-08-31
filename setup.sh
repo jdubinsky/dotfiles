@@ -5,9 +5,11 @@ update_nvim_flag=false;
 zparseopts -E -D -- -update-nvim=update_nvim_flag
 
 # install nvim nightly
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-chmod u+x nvim.appimage
-./nvim.appimage --appimage-extract
+cd ~/dotfiles &&
+    rm -f nvim.appimage &&
+    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
+    chmod u+x nvim.appimage &&
+    ./nvim.appimage --appimage-extract
 
 if [ -n "$update_nvim_flag" ]
 then
@@ -49,6 +51,7 @@ mkdir -p ~/.config/nvim/
 
 # dotfiles
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
+ln -sf ~/dotfiles/mackup/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 
 # install neovim plugins
