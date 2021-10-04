@@ -119,6 +119,8 @@ let g:gutentags_generate_on_new = 1
 
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
+let g:NERDSpaceDelims = 1
+
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number -- '.shellescape(<q-args>).' -- ":!*.rbi" ":!*test*" ":!*.graphql"', 0,

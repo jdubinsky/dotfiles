@@ -31,7 +31,6 @@ alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 if [ -n "$SPIN" ]
 then
     alias shopcd='cd /src/github.com/shopify/shopify'
-    alias nvim=/home/spin/dotfiles/squashfs-root/usr/bin/nvim
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
 fi
 

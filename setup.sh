@@ -4,12 +4,19 @@ update_nvim_flag=false;
 
 zparseopts -E -D -- -update-nvim=update_nvim_flag
 
-# install nvim nightly
-cd ~/dotfiles &&
-    rm -f nvim.appimage &&
-    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
-    chmod u+x nvim.appimage &&
-    ./nvim.appimage --appimage-extract
+if [ -n "$SPIN" ]
+then
+    sudo add-apt-repository ppa:neovim-ppa/unstable
+    sudo apt-get update
+    sudo apt-get install neovim
+else
+    rm nvim-macos.tar.gz
+    rm -rf ./nvim-osx64
+
+    wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz &&
+        tar xvzf nvim-macos.tar.gz &&
+        cp ./nvim-osx64/bin/nvim /usr/local/bin/nvim
+fi
 
 if [ -n "$update_nvim_flag" ]
 then
