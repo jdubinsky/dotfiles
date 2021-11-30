@@ -14,8 +14,7 @@ else
     rm -rf ./nvim-osx64
 
     wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz &&
-        tar xvzf nvim-macos.tar.gz &&
-        cp ./nvim-osx64/bin/nvim /usr/local/bin/nvim
+        tar xvzf nvim-macos.tar.gz
 fi
 
 if [ -n "$update_nvim_flag" ]

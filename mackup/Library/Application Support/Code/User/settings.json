@@ -33,6 +33,15 @@
         {
             "before": [
                 "<leader>",
+                "d"
+            ],
+            "commands": [
+                "workbench.action.toggleSidebarVisibility"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
                 "n"
             ],
             "commands": [
@@ -81,6 +90,9 @@
         "editor.tabSize": 4,
         "editor.formatOnSave": true
     },
+    "[ruby]": {
+        "editor.tabSize": 2,
+    },
     "workbench.editor.showTabs": false,
     "window.zoomLevel": 0,
     "terraform.indexing": {
@@ -100,5 +112,6 @@
     },
     "python.languageServer": "Jedi",
     "ruby.useLanguageServer": true,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "workbench.startupEditor": "none"
 }

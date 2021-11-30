@@ -6,7 +6,7 @@ ZSH_THEME="robbyrussell"
 
 plugins=(
     git
-    osx
+    macos
     docker
     docker-compose
     python
@@ -32,6 +32,8 @@ if [ -n "$SPIN" ]
 then
     alias shopcd='cd /src/github.com/shopify/shopify'
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
+else
+    alias nvim='/Users/jdubinsky/projects/dotfiles/nvim-osx64/bin/nvim'
 fi
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
@@ -87,3 +89,7 @@ spinmount() {
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
