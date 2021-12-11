@@ -37,11 +37,11 @@ fi
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # gems
-gem install solargraph
-gem install ripper-tags
-gem install sorbet
-gem install neovim
-gem install activesupport
+sudo gem install solargraph
+sudo gem install ripper-tags
+sudo gem install sorbet
+sudo gem install neovim
+sudo gem install activesupport
 
 # lsp
 sudo npm install -g diagnostic-languageserver

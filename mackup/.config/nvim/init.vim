@@ -7,7 +7,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ludovicchabant/vim-gutentags'
 " Plug 'vim-airline/vim-airline'
-Plug 'nvim-lualine/lualine.nvim'
+" Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
@@ -118,7 +118,7 @@ let test#ruby#runner = 'rails'
 
 lua << EOF
 
-require'lualine'.setup()
+-- require'lualine'.setup()
 
 require("trouble").setup()
 
