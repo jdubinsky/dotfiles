@@ -10,8 +10,6 @@ plugins=(
     docker
     docker-compose
     python
-    tmux
-    tmuxinator
     cp
     rails
     ruby
@@ -23,17 +21,16 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-source ~/.fzf.zsh
-
+alias sqlopen="open mysql://root@$(spin info fqdn)"
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 if [ -n "$SPIN" ]
 then
-    alias shopcd='cd /src/github.com/shopify/shopify'
+    alias shopcd='cd ~/src/github.com/Shopify/shopify'
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
 else
-    alias nvim='/Users/jdubinsky/projects/dotfiles/nvim-osx64/bin/nvim'
+    # alias nvim='/Users/jdubinsky/projects/dotfiles/nvim-osx64/bin/nvim'
 fi
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
@@ -48,6 +45,7 @@ fe() {
   [[ -n "$files" ]] && nvim "${files[@]}"
 }
 
+export PATH="$(yarn global bin):$PATH"
 export TERM="screen-256color"
 export EDITOR=nvim
 # export PYENV_ROOT="$HOME/.pyenv"
@@ -93,3 +91,5 @@ if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdub
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
+
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)

@@ -5,13 +5,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
-Plug 'ludovicchabant/vim-gutentags'
-" Plug 'vim-airline/vim-airline'
-" Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
+
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -19,6 +18,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'iamcco/diagnostic-languageserver'
 
 call plug#end()
 
@@ -45,8 +45,6 @@ colorscheme OceanicNext
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 nnoremap <esc> :noh<CR><esc>
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 noremap <Leader>y "*y
 noremap <Leader>p "*p
@@ -71,29 +69,9 @@ noremap <Leader>n :Ttoggle<CR>
 tnoremap <C-o> <C-\><C-n>
 
 " trouble
-nnoremap <LocalLeader>r :TroubleToggle lsp_document_diagnostics<CR>
+nnoremap <LocalLeader>r :TroubleToggle document_diagnostics<CR>
 
-" let g:airline_theme='oceanicnext'
-
-function! s:find_git_tags()  
-   let git_root = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-   let tag_root =  git_root . "/.tags"
-   return tag_root
-endfunction
-
-set tags=./.tags,.tags
-execute "set tags+=".s:find_git_tags()
-let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_file_list_command = {
-      \ 'markers': {
-      \ '.git': 'git ls-files',
-      \ },
-      \ }
-let g:gutentags_ctags_executable_ruby = 'ripper-tags'
-let g:gutentags_generate_on_new = 1
-
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
-
+" nerd commenter
 let g:NERDSpaceDelims = 1
 
 command! -bang -nargs=* GGrep
@@ -118,7 +96,7 @@ let test#ruby#runner = 'rails'
 
 lua << EOF
 
--- require'lualine'.setup()
+require'lualine'.setup()
 
 require("trouble").setup()
 
@@ -152,24 +130,92 @@ cmp.setup({
 
 local lspconfig = require('lspconfig')
 
-lspconfig.solargraph.setup {
-  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  settings = {
-    solargraph = {
-      diagnostics = true
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+lspconfig.diagnosticls.setup {
+    on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    filetypes = { 'ruby' },
+    init_options = {
+        linters = {
+            rubocop = {
+                sourceName = 'rubocop',
+                rootPatterns = { '.git' },
+                command = './bin/rubocop',
+                debounce = 100,
+                args = {
+                  '--format',
+                  'json',
+                  '--force-exclusion',
+                  '--stdin',
+                  '%filepath',
+                },
+                parseJson = {
+                  errorsRoot = 'files[0].offenses',
+                  line = 'location.start_line',
+                  endLine = 'location.last_line',
+                  column = 'location.start_column',
+                  endColumn = 'location.end_column',
+                  message = '[rubocop] [${cop_name}] ${message}',
+                  security = 'severity',
+                },
+                securities = {
+                  fatal = 'error',
+                  error = 'error',
+                  warning = 'warning',
+                  convention = 'info',
+                  refactor = 'info',
+                  info = 'info',
+                }
+            }
+        },
+        filetypes = {
+            ruby = 'rubocop'
+        }
     }
-  },
 }
 
 lspconfig.tsserver.setup {
+    on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 lspconfig.graphql.setup {
+    on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 lspconfig.sorbet.setup{
+    on_attach = on_attach,
     cmd = { "./bin/srb", "tc", "--lsp" },
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }

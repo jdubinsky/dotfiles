@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "Oceanic Next",
+    "workbench.colorTheme": "Default Dark+",
     "vim.leader": "<space>",
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -113,5 +113,6 @@
     "python.languageServer": "Jedi",
     "ruby.useLanguageServer": true,
     "git.autofetch": true,
-    "workbench.startupEditor": "none"
+    "workbench.startupEditor": "none",
+    "editor.accessibilitySupport": "off"
 }

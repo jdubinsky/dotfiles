@@ -37,8 +37,6 @@ fi
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # gems
-sudo gem install solargraph
-sudo gem install ripper-tags
 sudo gem install sorbet
 sudo gem install neovim
 sudo gem install activesupport
