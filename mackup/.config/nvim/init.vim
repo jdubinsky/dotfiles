@@ -68,6 +68,10 @@ noremap <Leader>tt :Ttoggle<CR>
 noremap <Leader>n :Ttoggle<CR>
 tnoremap <C-o> <C-\><C-n>
 
+" quickfix
+nnoremap <silent> <leader>gs mA:GscopeFind s <C-R><C-W><cr>
+nnoremap <leader>b :cclose<CR>`A
+
 " trouble
 nnoremap <LocalLeader>r :TroubleToggle document_diagnostics<CR>
 

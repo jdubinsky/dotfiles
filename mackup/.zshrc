@@ -28,41 +28,11 @@ alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 if [ -n "$SPIN" ]
 then
     alias shopcd='cd ~/src/github.com/Shopify/shopify'
+    alias shopu='update shopify--shopify'
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
+    export PATH="$(yarn global bin):$PATH"
 else
-    alias sqlopen="open mysql://root@$(spin info fqdn)"
-    # alias nvim='/Users/jdubinsky/projects/dotfiles/nvim-osx64/bin/nvim'
-    spinservice() {
-        spin info fqdn|awk -F '.' '{print $1}'
-    }
-
-    spinworkspace() {
-        jq -j --exit-status .default_workspace_group ~/.spin/state.spin.up.dev.json
-    }
-
-    spinhost() {
-        [[ $# -lt 2 ]] || { echo "usage: ${FUNCNAME[0]} [service]">&2 ; return; }
-        local service=${1-$(spinservice)}
-        local workspace="$(spinworkspace)"
-        if ! spin list --output json|jq -j --exit-status --arg workspace "${workspace}" --arg service "${service}" '.Workspaces[] | select(.Name==$workspace).Services[$service].FQDN | values' ; then
-            echo "Service '${service}.${workspace}' not found">&2
-        fi
-    }
-
-    spinmount() {
-        [[ $# -lt 2 ]] || { echo "usage: ${FUNCNAME[0]} [service]">&2 ; return; }
-        local service=${1-$(spinservice)}
-        local localPath="${HOME}/spin/${service}"
-        local remotePath="/src/github.com/shopify/${service}"
-        local host="$(spinhost "${service}")"
-        [[ -n "${host}" ]] || return
-        local remoteUrl="${host}:${remotePath}"
-        mkdir -p "${localPath}"
-        umount -f "${localPath}" 2>/dev/null
-        echo "Mounting ${remoteUrl} to ${localPath}"
-        sshfs "${remoteUrl}" "${localPath}"
-    }
-
+    # alias sqlopen="open mysql://root@$(spin info fqdn)"
     [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
     if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
@@ -85,7 +55,6 @@ fe() {
   [[ -n "$files" ]] && nvim "${files[@]}"
 }
 
-export PATH="$(yarn global bin):$PATH"
 export TERM="screen-256color"
 export EDITOR=nvim
 
