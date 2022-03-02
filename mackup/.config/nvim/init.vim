@@ -19,6 +19,9 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'iamcco/diagnostic-languageserver'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
 
@@ -67,6 +70,11 @@ let g:neoterm_size = 30
 noremap <Leader>tt :Ttoggle<CR>
 noremap <Leader>n :Ttoggle<CR>
 tnoremap <C-o> <C-\><C-n>
+
+" telescope
+nnoremap <c-p> <cmd>Telescope git_files<cr>
+nnoremap <leader>g <cmd>Telescope live_grep<cr>
+nnoremap <Leader>gd :lua require'telescope.builtin'.lsp_definitions{}<cr>
 
 " quickfix
 nnoremap <silent> <leader>gs mA:GscopeFind s <C-R><C-W><cr>
@@ -132,6 +140,14 @@ cmp.setup({
     }
 })
 
+local tele = require('telescope')
+tele.setup {
+    defaults = {
+        file_ignore_patterns = {"node_modules", "%.rbi"}
+    }
+}
+tele.load_extension('fzf')
+
 local lspconfig = require('lspconfig')
 
 local on_attach = function(client, bufnr)
@@ -145,8 +161,8 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  -- buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
