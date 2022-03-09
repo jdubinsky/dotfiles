@@ -104,6 +104,7 @@ nnoremap <LocalLeader>g :GGrep<CR>
 nmap <silent> <Leader>t :TestNearest<CR>
 nmap <silent> <Leader>T :TestFile<CR>
 let test#strategy = 'neoterm'
+let test#enabled_runners = ["ruby#rails"]
 let test#ruby#runner = 'rails'
 
 lua << EOF
