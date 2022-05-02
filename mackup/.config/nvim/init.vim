@@ -21,7 +21,6 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'iamcco/diagnostic-languageserver'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
 
@@ -96,8 +95,6 @@ command! -bang -nargs=* GFiles2
   \   '--cached --others --exclude-standard -- ":!*.rbi"',
   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
-map <c-p> :GFiles2<CR>
-
 nnoremap <LocalLeader>g :GGrep<CR>
 
 " vim-test
@@ -147,7 +144,6 @@ tele.setup {
         file_ignore_patterns = {"node_modules", "%.rbi"}
     }
 }
-tele.load_extension('fzf')
 
 local lspconfig = require('lspconfig')
 
@@ -241,7 +237,7 @@ lspconfig.sorbet.setup{
 }
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua", "tsx", "markdown", "yaml", "http", "html", "ptyhon", "scss", "vim" },
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
