@@ -237,7 +237,7 @@ lspconfig.sorbet.setup{
 }
 
 require'nvim-treesitter.configs'.setup {
-ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua", "tsx", "markdown", "yaml", "http", "html", "ptyhon", "scss", "vim" },
+ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua", "tsx", "markdown", "yaml", "http", "html", "python", "scss", "vim" },
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
