@@ -10,7 +10,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
-
+Plug 'andymass/vim-matchup'
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -30,7 +30,7 @@ filetype plugin indent on
 set autoindent
 set smartindent
 set expandtab
-set shiftwidth=4
+set shiftwidth=2
 
 syntax enable
 
@@ -119,6 +119,12 @@ require'nvim-web-devicons'.setup {
   }
  };
  default = true;
+}
+
+require'nvim-treesitter.configs'.setup {
+  matchup = {
+    enable = { "ruby", "go", "javascript", "jsx", "typescript", "tsx", "lua", "python" }
+  },
 }
 
 local cmp = require('cmp')

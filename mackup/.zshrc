@@ -24,6 +24,7 @@ source $ZSH/oh-my-zsh.sh
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
+alias mspin='mosh spin@$(spin show shopify-b2b-checkout-bfcn -o fqdn)'
 
 if [ -n "$SPIN" ]
 then
@@ -58,3 +59,5 @@ fe() {
 export TERM="screen-256color"
 export EDITOR=nvim
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
