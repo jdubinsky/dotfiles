@@ -3,7 +3,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'mhartington/oceanic-next'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+" Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -11,6 +12,7 @@ Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
 Plug 'andymass/vim-matchup'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -41,7 +43,8 @@ set termguicolors
 set background=dark
 set completeopt=menu,menuone,noselect
 
-colorscheme OceanicNext
+colorscheme dracula
+" colorscheme OceanicNext
 
 " Custom key mappings
 let mapleader = "\<Space>"
@@ -71,7 +74,8 @@ noremap <Leader>n :Ttoggle<CR>
 tnoremap <C-o> <C-\><C-n>
 
 " telescope
-nnoremap <c-p> <cmd>Telescope git_files<cr>
+" nnoremap <c-p> <cmd>Telescope git_files<cr>
+nnoremap <c-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>g <cmd>Telescope live_grep<cr>
 nnoremap <Leader>gd :lua require'telescope.builtin'.lsp_definitions{}<cr>
 
@@ -146,10 +150,20 @@ cmp.setup({
 
 local tele = require('telescope')
 tele.setup {
+    extensions = {
+      fzf = {
+        fuzzy = true,                    -- false will only do exact matching
+        override_generic_sorter = true,  -- override the generic sorter
+        override_file_sorter = true,     -- override the file sorter
+        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                         -- the default case_mode is "smart_case"
+      }
+    },
     defaults = {
         file_ignore_patterns = {"node_modules", "%.rbi"}
     }
 }
+tele.load_extension('fzf')
 
 local lspconfig = require('lspconfig')
 
