@@ -6,9 +6,9 @@ zparseopts -E -D -- -update-nvim=update_nvim_flag
 
 if [ -n "$SPIN" ]
 then
-    # sudo add-apt-repository ppa:neovim-ppa/unstable -y
+    sudo add-apt-repository ppa:neovim-ppa/unstable -y
     sudo apt-get update
-    # sudo apt-get install neovim -y
+    sudo apt-get install neovim -y
 else
     rm nvim-macos.tar.gz
     rm -rf ./nvim-osx64
