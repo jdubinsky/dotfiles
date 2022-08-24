@@ -56,6 +56,7 @@ mkdir -p ~/.config/nvim/
 # dotfiles
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.pryrc ~/.pryrc
 
 # install neovim plugins
 nvim --headless +PlugInstall +qall
