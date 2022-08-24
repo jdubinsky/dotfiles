@@ -42,9 +42,9 @@ sudo gem install neovim
 sudo gem install activesupport
 
 # lsp
-sudo npm install -g diagnostic-languageserver
 sudo npm install -g typescript-language-server
 sudo npm install -g graphql-language-service-cli
+sudo npm install -g eslint eslint_d
 
 # vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \

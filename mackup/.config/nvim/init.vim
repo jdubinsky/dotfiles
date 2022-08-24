@@ -17,10 +17,10 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'iamcco/diagnostic-languageserver'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
@@ -197,49 +197,6 @@ local on_attach = function(client, bufnr)
 
 end
 
-lspconfig.diagnosticls.setup {
-    on_attach = on_attach,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    filetypes = { 'ruby' },
-    init_options = {
-        linters = {
-            rubocop = {
-                sourceName = 'rubocop',
-                rootPatterns = { '.git' },
-                command = './bin/rubocop',
-                debounce = 100,
-                args = {
-                  '--format',
-                  'json',
-                  '--force-exclusion',
-                  '--stdin',
-                  '%filepath',
-                },
-                parseJson = {
-                  errorsRoot = 'files[0].offenses',
-                  line = 'location.start_line',
-                  endLine = 'location.last_line',
-                  column = 'location.start_column',
-                  endColumn = 'location.end_column',
-                  message = '[rubocop] [${cop_name}] ${message}',
-                  security = 'severity',
-                },
-                securities = {
-                  fatal = 'error',
-                  error = 'error',
-                  warning = 'warning',
-                  convention = 'info',
-                  refactor = 'info',
-                  info = 'info',
-                }
-            }
-        },
-        filetypes = {
-            ruby = 'rubocop'
-        }
-    }
-}
-
 lspconfig.tsserver.setup {
     on_attach = on_attach,
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -263,6 +220,16 @@ ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua
     additional_vim_regex_highlighting = false,
   },
 }
+
+local null_ls = require("null-ls");
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.diagnostics.rubocop.with({
+      only_local = "bin/",
+    })
+  }
+});
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics, {
