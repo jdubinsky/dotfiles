@@ -61,5 +61,7 @@ ln -sf ~/dotfiles/.pryrc ~/.pryrc
 # install neovim plugins
 nvim --headless +PlugInstall +qall
 
+git config --global commit.gpgSign true
+
 # reload with plugins
 source ~/.zshrc
