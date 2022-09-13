@@ -3,7 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
 Plug 'nvim-lualine/lualine.nvim'
@@ -13,6 +13,7 @@ Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'KenN7/vim-arsync'
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -22,7 +23,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
@@ -75,9 +76,9 @@ tnoremap <C-o> <C-\><C-n>
 
 " telescope
 " nnoremap <c-p> <cmd>Telescope git_files<cr>
-nnoremap <c-p> <cmd>Telescope find_files<cr>
-nnoremap <leader>g <cmd>Telescope live_grep<cr>
-nnoremap <Leader>gd :lua require'telescope.builtin'.lsp_definitions{}<cr>
+" nnoremap <c-p> <cmd>Telescope find_files<cr>
+" nnoremap <leader>g <cmd>Telescope live_grep<cr>
+" nnoremap <Leader>gd :lua require'telescope.builtin'.lsp_definitions{}<cr>
 
 " quickfix
 nnoremap <silent> <leader>gs mA:GscopeFind s <C-R><C-W><cr>
@@ -94,11 +95,12 @@ command! -bang -nargs=* GGrep
   \   'git grep --line-number -- '.shellescape(<q-args>).' -- ":!*.rbi" ":!*test*" ":!*.graphql"', 0,
   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
-command! -bang -nargs=* GFiles2
+command! -bang -nargs=* GFiles
   \ call fzf#vim#gitfiles(
   \   '--cached --others --exclude-standard -- ":!*.rbi"',
   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
+nnoremap <c-p> :GFiles<CR>
 nnoremap <LocalLeader>g :GGrep<CR>
 
 " vim-test
@@ -107,6 +109,13 @@ nmap <silent> <Leader>T :TestFile<CR>
 let test#strategy = 'neoterm'
 let test#enabled_runners = ["ruby#rails"]
 let test#ruby#runner = 'rails'
+
+function! RubySpinTestTransform(cmd) abort
+  return 'ssh spin@$(spin show -l -o fqdn) "cd /home/spin/src/github.com/Shopify/shopify && ' .. a:cmd .. '"'
+endfunction
+
+" let g:test#custom_transformations = {'ruby': function('RubySpinTestTransform')}
+" let g:test#transformation = 'ruby'
 
 lua << EOF
 
@@ -148,23 +157,6 @@ cmp.setup({
     }
 })
 
-local tele = require('telescope')
-tele.setup {
-    extensions = {
-      fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                         -- the default case_mode is "smart_case"
-      }
-    },
-    defaults = {
-        file_ignore_patterns = {"node_modules", "%.rbi"}
-    }
-}
-tele.load_extension('fzf')
-
 local lspconfig = require('lspconfig')
 
 local on_attach = function(client, bufnr)
@@ -179,7 +171,7 @@ local on_attach = function(client, bufnr)
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   -- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  -- buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<space>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)

@@ -1,6 +1,10 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
+
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
@@ -10,6 +14,7 @@ plugins=(
     docker
     docker-compose
     python
+    pyenv
     cp
     rails
     ruby
@@ -20,11 +25,12 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+DISABLE_AUTO_TITLE="true"
 
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
-alias mspin='mosh spin@$(spin show shopify-b2b-checkout-bfcn -o fqdn)'
+alias mspin='mosh spin@$(spin show -l -o fqdn)'
 
 if [ -n "$SPIN" ]
 then
@@ -56,7 +62,7 @@ fe() {
   [[ -n "$files" ]] && nvim "${files[@]}"
 }
 
-export TERM="screen-256color"
+export TERM="xterm-256color"
 export EDITOR=nvim
 
 
@@ -65,3 +71,5 @@ export EDITOR=nvim
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
