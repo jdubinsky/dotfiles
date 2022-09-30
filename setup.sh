@@ -4,18 +4,9 @@ update_nvim_flag=false;
 
 zparseopts -E -D -- -update-nvim=update_nvim_flag
 
-if [ -n "$SPIN" ]
-then
-  rm nvim.appimage && rm squashfs-root
-  wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
-    chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract
-else
-    rm nvim-macos.tar.gz
-    rm -rf ./nvim-osx64
-
-    wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz &&
-        tar xvzf nvim-macos.tar.gz
-fi
+rm nvim.appimage && rm squashfs-root
+wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
+  chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract
 
 if [ -n "$update_nvim_flag" ]
 then
