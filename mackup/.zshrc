@@ -30,7 +30,12 @@ DISABLE_AUTO_TITLE="true"
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
-alias mspin='mosh spin@$(spin show -l -o fqdn)'
+if [ -n "$SPIN" ]
+  alias nvim='~/squashfs-root/usr/bin/nvim'
+then
+  alias nvim='~/nvim-macos/bin/nvim'
+else
+fi
 
 if [ -n "$SPIN" ]
 then

@@ -6,9 +6,9 @@ zparseopts -E -D -- -update-nvim=update_nvim_flag
 
 if [ -n "$SPIN" ]
 then
-    sudo add-apt-repository ppa:neovim-ppa/unstable -y
-    sudo apt-get update
-    sudo apt-get install neovim -y
+  rm nvim.appimage && rm squashfs-root
+  wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
+    chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract
 else
     rm nvim-macos.tar.gz
     rm -rf ./nvim-osx64
@@ -29,9 +29,8 @@ if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
 fi
 
-if ! command -v fzf &> /dev/null; then
-  sudo apt-get install -y fzf
-fi
+wget https://github.com/junegunn/fzf/releases/download/0.34.0/fzf-0.34.0-linux_amd64.tar.gz &&
+  tar xvzf fzf-0.34.0-linux_amd64.tar.gz && sudo mv fzf /usr/local/bin/fzf
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

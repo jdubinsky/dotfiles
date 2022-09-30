@@ -3,8 +3,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-" Plug 'mhartington/oceanic-next'
 Plug 'scrooloose/nerdcommenter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -13,7 +11,6 @@ Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'KenN7/vim-arsync'
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -23,7 +20,6 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
@@ -43,6 +39,7 @@ set ignorecase
 set termguicolors
 set background=dark
 set completeopt=menu,menuone,noselect
+set colorcolumn=120
 
 colorscheme dracula
 " colorscheme OceanicNext
@@ -73,12 +70,6 @@ let g:neoterm_size = 30
 noremap <Leader>tt :Ttoggle<CR>
 noremap <Leader>n :Ttoggle<CR>
 tnoremap <C-o> <C-\><C-n>
-
-" telescope
-" nnoremap <c-p> <cmd>Telescope git_files<cr>
-" nnoremap <c-p> <cmd>Telescope find_files<cr>
-" nnoremap <leader>g <cmd>Telescope live_grep<cr>
-" nnoremap <Leader>gd :lua require'telescope.builtin'.lsp_definitions{}<cr>
 
 " quickfix
 nnoremap <silent> <leader>gs mA:GscopeFind s <C-R><C-W><cr>
@@ -132,12 +123,6 @@ require'nvim-web-devicons'.setup {
   }
  };
  default = true;
-}
-
-require'nvim-treesitter.configs'.setup {
-  matchup = {
-    enable = { "ruby", "go", "javascript", "jsx", "typescript", "tsx", "lua", "python" }
-  },
 }
 
 local cmp = require('cmp')
@@ -206,9 +191,9 @@ lspconfig.sorbet.setup{
 }
 
 require'nvim-treesitter.configs'.setup {
-ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua", "tsx", "markdown", "yaml", "http", "html", "python", "scss", "vim" },
+  ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua", "tsx", "markdown", "yaml", "http", "html", "python", "scss", "vim" },
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true,
     additional_vim_regex_highlighting = false,
   },
 }
@@ -217,9 +202,7 @@ local null_ls = require("null-ls");
 null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.diagnostics.rubocop.with({
-      only_local = "bin/",
-    })
+    null_ls.builtins.diagnostics.rubocop,
   }
 });
 
