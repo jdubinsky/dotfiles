@@ -6,7 +6,8 @@ zparseopts -E -D -- -update-nvim=update_nvim_flag
 
 rm nvim.appimage && rm squashfs-root
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
-  chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract
+  chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract &&
+  sudo cp -rp squashfs-root/usr/* /usr
 
 if [ -n "$update_nvim_flag" ]
 then
