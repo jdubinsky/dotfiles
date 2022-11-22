@@ -15,14 +15,12 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
-Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lua/plenary.nvim'
 
 call plug#end()
-
 
 filetype plugin indent on
 
@@ -172,6 +170,27 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre', 'CursorHold' }, {
+    buffer = bufnr,
+
+    callback = function()
+      local params = vim.lsp.util.make_text_document_params(bufnr)
+
+      client.request(
+        'textDocument/diagnostic',
+        { textDocument = params },
+        function(err, result)
+          if err then return end
+
+          vim.lsp.diagnostic.on_publish_diagnostics(
+            nil,
+            vim.tbl_extend('keep', params, { diagnostics = result.items }),
+            { client_id = client.id }
+          )
+        end
+      )
+    end,
+  })
 end
 
 lspconfig.tsserver.setup {
@@ -198,21 +217,17 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-local null_ls = require("null-ls");
-null_ls.setup({
-  sources = {
-    null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.diagnostics.rubocop,
-  }
-});
+lspconfig.ruby_ls.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-vim.lsp.diagnostic.on_publish_diagnostics, {
-   -- Enable underline, use default values
-   underline = true,
-   virtual_text = {
-     spacing = 2,
-   },
- }
-)
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = false
+})
+
 EOF
