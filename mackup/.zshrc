@@ -35,6 +35,7 @@ if [ -n "$SPIN" ]
 then
     alias shopcd='cd ~/src/github.com/Shopify/shopify'
     alias shopu='update shopify--shopify'
+    alias update_nvim='cd ~/dotfiles && ./setup.sh --update-nvim && cd -'
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
     export PATH="$(yarn global bin):$PATH"
 else
