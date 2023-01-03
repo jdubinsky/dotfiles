@@ -2,10 +2,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
+" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
@@ -56,7 +58,7 @@ function! s:find_git_root()
    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'dir':s:find_git_root(),'options': '--delimiter : --nth 4..'}, <bang>0)
+" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'dir':s:find_git_root(),'options': '--delimiter : --nth 4..'}, <bang>0)
 
 nnoremap <LocalLeader>p :Ag<CR>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -84,13 +86,17 @@ command! -bang -nargs=* GGrep
   \   'git grep --line-number -- '.shellescape(<q-args>).' -- ":!*.rbi" ":!*test*" ":!*.graphql"', 0,
   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
-command! -bang -nargs=* GFiles
-  \ call fzf#vim#gitfiles(
-  \   '--cached --others --exclude-standard -- ":!*.rbi"',
-  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+" command! -bang -nargs=* GFiles
+  " \ call fzf#vim#gitfiles(
+  " \   '--cached --others --exclude-standard -- ":!*.rbi"',
+  " \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
-nnoremap <c-p> :GFiles<CR>
-nnoremap <LocalLeader>g :GGrep<CR>
+" nnoremap <c-p> :GFiles<CR>
+" nnoremap <LocalLeader>g :GGrep<CR>
+
+
+nnoremap <c-p> <cmd>lua require('fzf-lua').git_files()<CR>
+nnoremap <LocalLeader>g <cmd>lua require('fzf-lua').live_grep({ cmd = "git grep --line-number --column --color=always" })<CR>
 
 " vim-test
 nmap <silent> <Leader>t :TestNearest<CR>
@@ -221,6 +227,8 @@ lspconfig.ruby_ls.setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
+
+require'lspconfig'.pyright.setup{}
 
 vim.diagnostic.config({
   virtual_text = true,
