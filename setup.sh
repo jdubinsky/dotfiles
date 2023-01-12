@@ -21,8 +21,11 @@ if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
 fi
 
-wget https://github.com/junegunn/fzf/releases/download/0.34.0/fzf-0.34.0-linux_amd64.tar.gz &&
-  tar xvzf fzf-0.34.0-linux_amd64.tar.gz && sudo mv fzf /usr/local/bin/fzf
+sudo apt-get install -y rbenv
+
+FZF_VERSION=0.35.1
+wget https://github.com/junegunn/fzf/releases/download/$FZF_VERSION/fzf-$FZF_VERSION-linux_amd64.tar.gz &&
+  tar xvzf fzf-$FZF_VERSION-linux_amd64.tar.gz && sudo mv fzf /usr/local/bin/fzf
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
