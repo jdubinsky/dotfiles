@@ -13,6 +13,7 @@ Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

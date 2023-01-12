@@ -30,6 +30,7 @@ DISABLE_AUTO_TITLE="true"
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
+alias gprune='git remote prune origin'
 
 if [ -n "$SPIN" ]
 then
