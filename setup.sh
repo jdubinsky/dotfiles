@@ -19,6 +19,7 @@ fi
 # install required packages
 if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
+  sudo apt-get install -y fd
 fi
 
 FZF_VERSION=0.35.1
@@ -49,6 +50,7 @@ mkdir -p ~/.config/nvim/
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.pryrc ~/.pryrc
+ln -sf ~/dotfiles/.fdignore ~/.fdignore
 
 # install neovim plugins
 nvim --headless +PlugInstall +qall
