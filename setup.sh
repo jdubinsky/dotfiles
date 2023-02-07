@@ -32,9 +32,9 @@ wget https://github.com/junegunn/fzf/releases/download/$FZF_VERSION/fzf-$FZF_VER
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # gems
-sudo gem install sorbet
-sudo gem install neovim
-sudo gem install activesupport
+gem install sorbet
+gem install neovim
+gem install activesupport
 
 # lsp
 sudo npm install -g typescript-language-server
