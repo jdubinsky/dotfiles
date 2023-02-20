@@ -230,7 +230,14 @@ lspconfig.ruby_ls.setup {
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
-require'lspconfig'.pyright.setup{}
+lspconfig.eslint.setup{
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
+
+lspconfig.pyright.setup{}
+
+lspconfig.tailwindcss.setup{}
 
 vim.diagnostic.config({
   virtual_text = true,
