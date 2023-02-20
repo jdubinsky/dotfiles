@@ -100,6 +100,8 @@ nnoremap <c-p> <cmd>lua require('fzf-lua').files()<CR>
 " nnoremap <c-p> <cmd>lua require('fzf-lua').git_files()<CR>
 nnoremap <LocalLeader>g <cmd>lua require('fzf-lua').live_grep({ cmd = "git grep --line-number --column --color=always" })<CR>
 
+vnoremap <leader>c :OSCYank<CR>
+
 " vim-test
 nmap <silent> <Leader>t :TestNearest<CR>
 nmap <silent> <Leader>T :TestFile<CR>

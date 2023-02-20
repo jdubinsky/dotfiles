@@ -19,6 +19,7 @@ fi
 # install required packages
 if ! command -v rg &> /dev/null; then
   sudo apt-get install -y ripgrep
+  sudo apt-get install -y fd
 fi
 
 sudo apt install -y fd-find
@@ -31,9 +32,9 @@ wget https://github.com/junegunn/fzf/releases/download/$FZF_VERSION/fzf-$FZF_VER
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # gems
-sudo gem install sorbet
-sudo gem install neovim
-sudo gem install activesupport
+gem install sorbet
+gem install neovim
+gem install activesupport
 
 # lsp
 sudo npm install -g typescript-language-server
@@ -51,6 +52,7 @@ mkdir -p ~/.config/nvim/
 ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.pryrc ~/.pryrc
+ln -sf ~/dotfiles/.fdignore ~/.fdignore
 
 # install neovim plugins
 nvim --headless +PlugInstall +qall
