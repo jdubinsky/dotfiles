@@ -32,14 +32,10 @@ wget https://github.com/junegunn/fzf/releases/download/$FZF_VERSION/fzf-$FZF_VER
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # gems
-gem install sorbet
-gem install neovim
-gem install activesupport
+cd /home/spin/src/github.com/Shopify/web && gem install sorbet neovim activesupport
 
 # lsp
-sudo npm install -g typescript-language-server
-sudo npm install -g graphql-language-service-cli
-sudo npm install -g eslint eslint_d
+npm install -g typescript-language-server graphql-language-service-cli eslint eslint_d
 
 # vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
