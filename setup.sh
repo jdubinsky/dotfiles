@@ -31,6 +31,14 @@ wget https://github.com/junegunn/fzf/releases/download/$FZF_VERSION/fzf-$FZF_VER
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+# fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Cousine.zip
+mkdir -p ~/.local/share/fonts
+unzip Cousine.zip -d ~/.local/share/fonts
+rm ~/.local/share/fonts/*Windows*
+rm Cousine.zip
+fc-cache -fv
+
 # gems
 cd /home/spin/src/github.com/Shopify/web && gem install sorbet neovim activesupport
 
@@ -49,6 +57,7 @@ ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.pryrc ~/.pryrc
 ln -sf ~/dotfiles/.fdignore ~/.fdignore
+ln -sf ~/dotfiles/mackup/.tmux.conf ~/.tmux.conf
 
 # install neovim plugins
 nvim --headless +PlugInstall +qall
