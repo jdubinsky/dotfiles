@@ -109,9 +109,9 @@ let test#strategy = 'neoterm'
 let test#enabled_runners = ["ruby#rails"]
 let test#ruby#runner = 'rails'
 
-function! RubySpinTestTransform(cmd) abort
-  return 'ssh spin@$(spin show -l -o fqdn) "cd /home/spin/src/github.com/Shopify/shopify && ' .. a:cmd .. '"'
-endfunction
+" function! RubySpinTestTransform(cmd) abort
+  " return 'ssh spin@$(spin show -l -o fqdn) "cd /home/spin/src/github.com/Shopify/shopify && ' .. a:cmd .. '"'
+" endfunction
 
 " let g:test#custom_transformations = {'ruby': function('RubySpinTestTransform')}
 " let g:test#transformation = 'ruby'
@@ -213,9 +213,23 @@ lspconfig.graphql.setup {
     capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
+local in_spin = os.getenv("SPIN")
+local sorbet_cmd = { "srb", "tc", "--lsp" }
+
+function file_exists(name)
+  local f=io.open(name,"r")
+  if f~=nil then io.close(f) return true else return false end
+end
+
+local local_srb_exists = file_exists("./bin/srb")
+
+if local_srb_exists then
+  sorbet_cmd = { "./bin/srb", "tc", "--lsp" }
+end
+
 lspconfig.sorbet.setup{
     on_attach = on_attach,
-    cmd = { "./bin/srb", "tc", "--lsp" },
+    cmd = sorbet_cmd,
     capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 

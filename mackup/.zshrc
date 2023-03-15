@@ -18,6 +18,7 @@ plugins=(
     cp
     rails
     ruby
+    tmux
     vi-mode
     zsh-navigation-tools
 )

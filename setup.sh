@@ -40,7 +40,7 @@ rm Cousine.zip
 fc-cache -fv
 
 # gems
-cd /home/spin/src/github.com/Shopify/web && gem install sorbet neovim activesupport
+gem install sorbet ruby-lsp neovim activesupport
 
 # lsp
 npm install -g typescript-language-server graphql-language-service-cli eslint eslint_d
