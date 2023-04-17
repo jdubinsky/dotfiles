@@ -6,6 +6,9 @@ keymap("n", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- escape
+keymap("n", "<esc>", ":noh<CR><esc>", opts)
+
 -- navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
