@@ -53,7 +53,8 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 mkdir -p ~/.config/nvim/
 
 # dotfiles
-ln -sf ~/dotfiles/mackup/.config/nvim/init.vim ~/.config/nvim/init.vim
+ln -sf ~/dotfiles/mackup/.config/nvim/init.lua ~/.config/nvim/init.lua
+ln -sf ~/dotfiles/mackup/.config/nvim/lua ~/.config/nvim/lua
 ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.pryrc ~/.pryrc
 ln -sf ~/dotfiles/.fdignore ~/.fdignore
