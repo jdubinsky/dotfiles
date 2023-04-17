@@ -7,7 +7,6 @@ Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'

@@ -45,7 +45,7 @@ else
     [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
     if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-    [[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 
     [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
 
@@ -75,5 +75,4 @@ export EDITOR=nvim
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-# eval "$(rbenv init -)"
-export PATH=$PATH:$(npm get prefix)/bin
+export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
