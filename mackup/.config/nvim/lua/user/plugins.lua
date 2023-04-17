@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	"nvim-tree/nvim-web-devicons",
+	"Mofiqul/dracula.nvim",
 	{ "ghifarit53/tokyonight-vim", lazy = false },
 	"nvim-lua/plenary.nvim",
 	"williamboman/mason.nvim",
@@ -28,6 +29,7 @@ require("lazy").setup({
 	"hrsh7th/nvim-cmp",
 	"junegunn/fzf",
 	{ "ibhagwan/fzf-lua", branch = "main" },
+	"klen/nvim-test",
 	"numToStr/Comment.nvim",
 	"nvim-lualine/lualine.nvim",
 	"ojroques/nvim-osc52",

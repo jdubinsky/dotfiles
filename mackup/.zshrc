@@ -47,6 +47,8 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 DISABLE_AUTO_TITLE="true"
 
+source /usr/local/share/chruby/chruby.sh
+
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
@@ -75,3 +77,5 @@ export EDITOR=nvim
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
+
+chruby 3.2.2
