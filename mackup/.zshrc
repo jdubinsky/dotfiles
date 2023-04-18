@@ -47,7 +47,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 DISABLE_AUTO_TITLE="true"
 
-[ -f /user/local/share/chruby/chruby.sh ] && source /usr/local/share/chruby/chruby.sh
+[ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh  ] && source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
 
 alias ls='ls -lGH'
 alias g='git'
@@ -78,4 +78,4 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 
-chruby 3.2.2
+[[ -x chruby ]] && chruby 3.2.2
