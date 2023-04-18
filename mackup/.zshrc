@@ -47,7 +47,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 DISABLE_AUTO_TITLE="true"
 
-source /usr/local/share/chruby/chruby.sh
+[ -f /user/local/share/chruby/chruby.sh ] && source /usr/local/share/chruby/chruby.sh
 
 alias ls='ls -lGH'
 alias g='git'

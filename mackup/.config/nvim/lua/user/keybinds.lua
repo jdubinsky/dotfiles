@@ -22,4 +22,8 @@ keymap("n", "<Leader>y", '"*y', opts)
 keymap("n", "<Leader>p", '"*p', opts)
 keymap("n", "<Leader>Y", '"+y', opts)
 keymap("n", "<Leader>P", '"+p', opts)
+keymap("v", "<Leader>y", '"*y', opts)
+keymap("v", "<Leader>p", '"*p', opts)
+keymap("v", "<Leader>Y", '"+y', opts)
+keymap("v", "<Leader>P", '"+p', opts)
 
