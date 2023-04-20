@@ -7,6 +7,8 @@ toggleterm.setup({
 	open_mapping = [[<leader>n]],
 	direction = "horizontal",
 	size = 30,
+  shade_terminals = false,
+  insert_mappings = false,
 })
 
 function _G.set_terminal_keymaps()
