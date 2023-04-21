@@ -1,9 +1,7 @@
 vim.g["test#strategy"] = "toggleterm"
-vim.g["test#enabled_runners"] = {"ruby#rails"}
+-- vim.g["test#enabled_runners"] = {"ruby#rails"}
 vim.g["test#ruby#runner"] = "rails"
--- let test#strategy = 'neoterm'
--- let test#enabled_runners = ["ruby#rails"]
--- let test#ruby#runner = 'rails'
+-- vim.g["test#javascript#runner"] = "mocha"
 
 local status_ok, neotest = pcall(require, "neotest")
 if not status_ok then

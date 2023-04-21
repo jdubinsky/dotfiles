@@ -4,7 +4,22 @@ if not status_ok then
 end
 
 configs.setup {
-  ensure_installed = { "ruby", "graphql", "json", "javascript", "typescript", "lua", "tsx", "markdown", "yaml", "http", "html", "python", "scss", "vim" },
+  ensure_installed = {
+    "ruby",
+    "graphql",
+    "json",
+    "javascript",
+    "typescript",
+    "lua",
+    "tsx",
+    "markdown",
+    "yaml",
+    "http",
+    "html",
+    "python",
+    "scss",
+    "vim",
+  },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
