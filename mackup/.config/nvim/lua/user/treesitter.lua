@@ -18,6 +18,7 @@ configs.setup {
     "html",
     "python",
     "scss",
+    "terraform",
     "vim",
   },
   highlight = {
