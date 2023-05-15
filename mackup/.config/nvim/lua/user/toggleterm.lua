@@ -9,6 +9,7 @@ toggleterm.setup({
 	size = 30,
   shade_terminals = false,
   insert_mappings = false,
+  terminal_mappings = false,
 })
 
 function _G.set_terminal_keymaps()
