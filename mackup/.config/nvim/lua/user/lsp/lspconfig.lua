@@ -39,6 +39,7 @@ local on_attach = function(client, bufnr)
         { textDocument = params },
         function(err, result)
           if err then return end
+          if result == nil then return end
 
           vim.lsp.diagnostic.on_publish_diagnostics(
             nil,
