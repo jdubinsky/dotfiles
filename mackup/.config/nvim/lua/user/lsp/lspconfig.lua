@@ -81,10 +81,10 @@ lspconfig.sorbet.setup({
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
-lspconfig.ruby_ls.setup({
+-- lspconfig.ruby_ls.setup({
   -- on_attach = on_attach,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-})
+  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+-- })
 
 lspconfig.eslint.setup({
   on_attach = on_attach,
