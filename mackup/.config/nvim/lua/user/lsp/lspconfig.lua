@@ -28,38 +28,38 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-	vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre', 'CursorHold' }, {
-    buffer = bufnr,
-
-    callback = function()
-      local params = vim.lsp.util.make_text_document_params(bufnr)
-
-      client.request(
-        'textDocument/diagnostic',
-        { textDocument = params },
-        function(err, result)
-          if err then return end
-          if result == nil then return end
-
-          vim.lsp.diagnostic.on_publish_diagnostics(
-            nil,
-            vim.tbl_extend('keep', params, { diagnostics = result.items }),
-            { client_id = client.id }
-          )
-        end
-      )
-    end,
-  })
+  -- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre', 'CursorHold' }, {
+ --    buffer = bufnr,
+  --
+ --    callback = function()
+ --      local params = vim.lsp.util.make_text_document_params(bufnr)
+  --
+ --      client.request(
+ --        'textDocument/diagnostic',
+ --        { textDocument = params },
+ --        function(err, result)
+ --          if err then return end
+ --          if result == nil then return end
+  --
+ --          vim.lsp.diagnostic.on_publish_diagnostics(
+ --            nil,
+ --            vim.tbl_extend('keep', params, { diagnostics = result.items }),
+ --            { client_id = client.id }
+ --          )
+ --        end
+ --      )
+ --    end,
+ --  })
 end
 
 lspconfig.tsserver.setup({
-	on_attach = on_attach,
-	capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 lspconfig.graphql.setup({
-	on_attach = on_attach,
-	capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 function file_exists(name)
@@ -76,19 +76,19 @@ else
 end
 
 lspconfig.sorbet.setup({
-	on_attach = on_attach,
-	cmd = sorbet_cmd,
-	capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = on_attach,
+  cmd = sorbet_cmd,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 lspconfig.ruby_ls.setup({
-	on_attach = on_attach,
-	capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 lspconfig.eslint.setup({
-	on_attach = on_attach,
-	capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 vim.diagnostic.config({

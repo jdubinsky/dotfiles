@@ -14,7 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"nvim-tree/nvim-web-devicons",
 	"Mofiqul/dracula.nvim",
-	{ "ghifarit53/tokyonight-vim", lazy = false },
 	"nvim-lua/plenary.nvim",
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
