@@ -35,4 +35,5 @@ require("lazy").setup({
 	"numToStr/Comment.nvim",
 	"nvim-lualine/lualine.nvim",
 	"ojroques/nvim-osc52",
+  "andymass/vim-matchup",
 })
