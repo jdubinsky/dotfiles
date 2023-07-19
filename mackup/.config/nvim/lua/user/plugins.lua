@@ -20,7 +20,6 @@ require("lazy").setup({
   "neovim/nvim-lspconfig",
   "jose-elias-alvarez/null-ls.nvim",
   { "akinsho/toggleterm.nvim", version = "*" },
-  { 'TimUntersberger/neogit', dependencies = 'nvim-lua/plenary.nvim' },
   "folke/trouble.nvim",
   "nvim-treesitter/nvim-treesitter",
   "hrsh7th/cmp-nvim-lsp",
