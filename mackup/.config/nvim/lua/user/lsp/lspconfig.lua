@@ -81,14 +81,25 @@ lspconfig.sorbet.setup({
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
--- lspconfig.ruby_ls.setup({
-  -- on_attach = on_attach,
-  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
--- })
+lspconfig.ruby_ls.setup({
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+})
 
 lspconfig.eslint.setup({
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+})
+
+vim.opt.signcolumn = "yes"
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "ruby",
+  callback = function()
+    vim.lsp.start {
+      name = "rubocop",
+      cmd = { "bundle", "exec", "rubocop", "--lsp" },
+    }
+  end,
 })
 
 vim.diagnostic.config({
