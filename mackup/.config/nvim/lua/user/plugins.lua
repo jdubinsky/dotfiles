@@ -18,7 +18,6 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
-  "jose-elias-alvarez/null-ls.nvim",
   { "akinsho/toggleterm.nvim", version = "*" },
   "folke/trouble.nvim",
   "nvim-treesitter/nvim-treesitter",
