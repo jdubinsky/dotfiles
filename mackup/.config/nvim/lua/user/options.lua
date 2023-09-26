@@ -12,3 +12,4 @@ set.background = "dark"
 set.completeopt = "menu,menuone,noselect"
 -- set.colorcolumn = 120
 set.swapfile = false
+set.cindent = true

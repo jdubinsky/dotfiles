@@ -35,4 +35,5 @@ require("lazy").setup({
   "nvim-lualine/lualine.nvim",
   "ojroques/nvim-osc52",
   "andymass/vim-matchup",
+  "github/copilot.vim",
 })
