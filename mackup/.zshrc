@@ -13,6 +13,7 @@ then
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
     export PATH="$(yarn global bin):$PATH"
 else
+    export BUNDLE_PATH=$GEM_HOME
     # alias sqlopen="open mysql://root@$(spin info fqdn)"
     [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
     if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
