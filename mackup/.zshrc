@@ -80,3 +80,7 @@ eval "$(pyenv virtualenv-init -)"
 export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 
 [[ -x chruby ]] && chruby 3.2.2
+
+eval "$(atuin init zsh)"
+
+export BUNDLE_PATH=$GEM_HOME

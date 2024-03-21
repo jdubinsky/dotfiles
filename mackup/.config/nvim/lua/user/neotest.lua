@@ -11,6 +11,8 @@ end
 neotest.setup({
   adapters = {
     require("neotest-jest"),
+    require("neotest-rspec"),
+    require("neotest-minitest"),
     require("neotest-vim-test")({ allow_file_types = { "ruby" } }),
   },
 })
@@ -18,8 +20,8 @@ neotest.setup({
 local opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 keymap("n", "<leader>t", ":TestNearest<CR>", opts)
---keymap("n", "<leader>t", "<cmd>lua require('neotest').run.run()<cr>", opts)
---keymap("n", "<leader>T", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", opts)
+-- keymap("n", "<leader>t", "<cmd>lua require('neotest').run.run()<cr>", opts)
+-- keymap("n", "<leader>T", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", opts)
 keymap("n", "<leader>T", ":TestFile<CR>", opts)
 -- keymap("n", "<leader>t", require("neotest").run.run(), opts)
 -- keymap("n", "<leader>T", neotest.run.run(vim.fn.expand("%")), opts)
