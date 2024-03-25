@@ -5,7 +5,7 @@ local servers = {
   "graphql",
   "jsonls",
   "tsserver",
-	"ruby_ls",
+	-- "ruby_ls",
 	"sorbet",
 	"lua_ls",
 }

@@ -26,20 +26,22 @@ require("lazy").setup({
   "hrsh7th/nvim-cmp",
   "junegunn/fzf",
   { "ibhagwan/fzf-lua", branch = "main" },
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "vim-test/vim-test",
-      "nvim-neotest/neotest-vim-test",
-      "zidhuss/neotest-minitest",
-      "haydenmeade/neotest-jest",
-      "olimorris/neotest-rspec",
-    }
-  },
+  "antoinemadec/FixCursorHold.nvim",
+  "vim-test/vim-test",
+  -- {
+  --   "nvim-neotest/neotest",
+  --   dependencies = {
+  --     "nvim-neotest/nvim-nio",
+  --     -- "nvim-lua/plenary.nvim",
+  --     "antoinemadec/FixCursorHold.nvim",
+  --     -- "nvim-treesitter/nvim-treesitter",
+  --     "vim-test/vim-test",
+  --     "nvim-neotest/neotest-vim-test",
+  --     -- "zidhuss/neotest-minitest",
+  --     -- "haydenmeade/neotest-jest",
+  --     -- "olimorris/neotest-rspec",
+  --   }
+  -- },
   "numToStr/Comment.nvim",
   "nvim-lualine/lualine.nvim",
   "ojroques/nvim-osc52",
