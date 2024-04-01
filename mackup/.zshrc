@@ -81,6 +81,8 @@ export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 
 [[ -x chruby ]] && chruby 3.2.2
 
-eval "$(atuin init zsh)"
+if type "$atuin" > /dev/null; then
+  eval "$(atuin init zsh)"
+fi
 
 export BUNDLE_PATH=$GEM_HOME
