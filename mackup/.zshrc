@@ -81,7 +81,7 @@ export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 
 [[ -x chruby ]] && chruby 3.2.2
 
-if type "$atuin" > /dev/null; then
+if type atuin > /dev/null; then
   eval "$(atuin init zsh)"
 fi
 
