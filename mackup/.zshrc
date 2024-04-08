@@ -84,5 +84,3 @@ export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 if type atuin > /dev/null; then
   eval "$(atuin init zsh)"
 fi
-
-export BUNDLE_PATH=$GEM_HOME
