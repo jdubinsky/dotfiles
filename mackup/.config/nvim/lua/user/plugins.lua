@@ -14,6 +14,11 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   "nvim-tree/nvim-web-devicons",
   "Mofiqul/dracula.nvim",
+  {
+    'nvim-telescope/telescope.nvim',
+      tag = '0.1.6',
+      dependencies = { 'nvim-lua/plenary.nvim' }
+  },
   "nvim-lua/plenary.nvim",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
@@ -24,24 +29,10 @@ require("lazy").setup({
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
   "hrsh7th/nvim-cmp",
-  "junegunn/fzf",
-  { "ibhagwan/fzf-lua", branch = "main" },
+  -- { "ibhagwan/fzf-lua", branch = "main" },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   "antoinemadec/FixCursorHold.nvim",
   "vim-test/vim-test",
-  -- {
-  --   "nvim-neotest/neotest",
-  --   dependencies = {
-  --     "nvim-neotest/nvim-nio",
-  --     -- "nvim-lua/plenary.nvim",
-  --     "antoinemadec/FixCursorHold.nvim",
-  --     -- "nvim-treesitter/nvim-treesitter",
-  --     "vim-test/vim-test",
-  --     "nvim-neotest/neotest-vim-test",
-  --     -- "zidhuss/neotest-minitest",
-  --     -- "haydenmeade/neotest-jest",
-  --     -- "olimorris/neotest-rspec",
-  --   }
-  -- },
   "numToStr/Comment.nvim",
   "nvim-lualine/lualine.nvim",
   "ojroques/nvim-osc52",

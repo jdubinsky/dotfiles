@@ -12,15 +12,15 @@ neotest.setup({
   adapters = {
     -- require("neotest-jest"),
     -- require("neotest-rspec"),
-    -- require("neotest-minitest")({
-    --   test_cmd = function()
-    --     return vim.tbl_flatten({
-    --       "bin/rails",
-    --       "test",
-    --     })
-    --   end
-    -- }),
-    require("neotest-vim-test")({ allow_file_types = { "ruby" } }),
+    require("neotest-minitest")({
+      test_cmd = function()
+        return vim.tbl_flatten({
+          "bin/rails",
+          "test",
+        })
+      end
+    }),
+    -- require("neotest-vim-test")({ allow_file_types = { "ruby" } }),
   },
 })
 

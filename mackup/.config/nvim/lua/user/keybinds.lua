@@ -26,3 +26,7 @@ keymap("v", "<Leader>y", '"*y', opts)
 keymap("v", "<Leader>p", '"*p', opts)
 keymap("v", "<Leader>Y", '"+y', opts)
 keymap("v", "<Leader>P", '"+p', opts)
+
+-- quickfix
+-- keymap("n", "<leader>q", ":copen<CR>", opts)
+-- keymap("n", "<leader>Q", ":cclose<CR>", opts)
