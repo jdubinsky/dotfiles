@@ -31,6 +31,8 @@ require("lazy").setup({
   "hrsh7th/nvim-cmp",
   -- { "ibhagwan/fzf-lua", branch = "main" },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  -- { 'nvim-telescope/telescope-fzy-native.nvim', build = 'make' },
+  "natecraddock/telescope-zf-native.nvim",
   "antoinemadec/FixCursorHold.nvim",
   "vim-test/vim-test",
   "numToStr/Comment.nvim",
