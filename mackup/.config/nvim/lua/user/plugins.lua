@@ -39,7 +39,7 @@ require("lazy").setup({
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  "natecraddock/telescope-zf-native.nvim",
+  -- "natecraddock/telescope-zf-native.nvim",
   "antoinemadec/FixCursorHold.nvim",
   "vim-test/vim-test",
   "numToStr/Comment.nvim",
