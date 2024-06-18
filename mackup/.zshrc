@@ -29,7 +29,7 @@ fi
 ZSH_THEME="robbyrussell"
 
 plugins=(
-    git
+    gitfast
     macos
     docker
     docker-compose
@@ -75,8 +75,8 @@ export EDITOR=nvim
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 
 [[ -x chruby ]] && chruby 3.2.2
@@ -84,3 +84,6 @@ export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 if type atuin > /dev/null; then
   eval "$(atuin init zsh)"
 fi
+
+# Created by `pipx` on 2024-06-03 18:45:48
+# export PATH="$PATH:/Users/jdubinsky/.local/bin"

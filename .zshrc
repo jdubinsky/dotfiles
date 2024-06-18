@@ -15,7 +15,7 @@ alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 plugins=(
-    git
+    gitfast
     osx
     python
     yarn
