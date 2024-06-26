@@ -6,7 +6,7 @@ end
 toggleterm.setup({
 	open_mapping = [[<leader>n]],
 	direction = "horizontal",
-	size = 30,
+	size = 18,
   shade_terminals = false,
   insert_mappings = false,
   terminal_mappings = false,

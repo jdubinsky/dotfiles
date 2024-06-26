@@ -29,6 +29,7 @@ fi
 ZSH_THEME="robbyrussell"
 
 plugins=(
+    git
     gitfast
     macos
     docker
