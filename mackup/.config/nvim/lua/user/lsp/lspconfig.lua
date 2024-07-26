@@ -64,18 +64,18 @@ lspconfig.graphql.setup({
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
-function file_exists(name)
-  local f=io.open(name,"r")
-  if f~=nil then io.close(f) return true else return false end
-end
-
-local local_srb_exists = file_exists("./bin/srb")
-
-if local_srb_exists then
-  sorbet_cmd = { "./bin/srb", "tc", "--lsp" }
-else
-  sorbet_cmd = { "srb", "tc", "--lsp" }
-end
+-- function file_exists(name)
+--   local f=io.open(name,"r")
+--   if f~=nil then io.close(f) return true else return false end
+-- end
+--
+-- local local_srb_exists = file_exists("./bin/srb")
+--
+-- if local_srb_exists then
+--   sorbet_cmd = { "./bin/srb", "tc", "--lsp" }
+-- else
+--   sorbet_cmd = { "srb", "tc", "--lsp" }
+-- end
 
 -- lspconfig.sorbet.setup({
 --   on_attach = on_attach,
