@@ -14,3 +14,5 @@
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [include]
 	path = /Users/jdubinsky/.config/dev/gitconfig
+[submodule]
+	recurse = true
