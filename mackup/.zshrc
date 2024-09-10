@@ -12,6 +12,7 @@ then
     alias update_nvim='cd ~/dotfiles && ./setup.sh --update-nvim && cd -'
     alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
     export PATH="$(yarn global bin):$PATH"
+    alias devr='dev up && dev restart --procs'
 else
     export BUNDLE_PATH=$GEM_HOME
     # alias sqlopen="open mysql://root@$(spin info fqdn)"

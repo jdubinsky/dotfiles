@@ -4,9 +4,9 @@ local servers = {
 	"lua_ls",
   "graphql",
   "jsonls",
-  "tsserver",
 	"ruby_lsp",
-	-- "sorbet",
+	"sorbet",
+  "ts_ls",
 }
 
 require("mason-lspconfig").setup({ ensure_installed = servers, automatic_installation = true })
