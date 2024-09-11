@@ -52,6 +52,7 @@ DISABLE_AUTO_TITLE="true"
 
 [ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh  ] && source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
 
+alias zj='zellij'
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
