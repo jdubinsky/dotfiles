@@ -22,6 +22,12 @@ if ! command -v rg &> /dev/null; then
   sudo apt-get install -y fd
 fi
 
+# zellij
+wget -O zellij.tar.gz 'https://github.com/zellij-org/zellij/releases/download/v0.40.1/zellij-x86_64-unknown-linux-musl.tar.gz'
+tar -xvzf zellij.tar.gz
+chmod +x zellij
+sudo mv zellij /usr/local/bin
+
 # lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
