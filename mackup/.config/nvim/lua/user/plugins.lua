@@ -44,7 +44,6 @@ require("lazy").setup({
   "vim-test/vim-test",
   "numToStr/Comment.nvim",
   "nvim-lualine/lualine.nvim",
-  "ojroques/nvim-osc52",
   "andymass/vim-matchup",
   "github/copilot.vim",
 })
