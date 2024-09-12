@@ -74,6 +74,7 @@ ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.pryrc ~/.pryrc
 ln -sf ~/dotfiles/.fdignore ~/.fdignore
 ln -sf ~/dotfiles/mackup/.tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/config.kdl ~/.config/zellij/config.kdl
 
 # install neovim plugins
 nvim --headless +PlugInstall +qall
