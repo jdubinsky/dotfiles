@@ -14,6 +14,8 @@ set.completeopt = "menu,menuone,noselect"
 set.swapfile = false
 set.cindent = true
 
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 vim.g.clipboard = {
   name = 'OSC 52',
   copy = {
