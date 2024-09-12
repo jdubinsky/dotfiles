@@ -5,7 +5,15 @@ end
 
 lualine.setup({
   sections = {
-    lualine_c = { { "filename", path = 1 } },
+    lualine_c = {
+      { "filename", path = 1 },
+      {
+        require("nvim-possession").status,
+        cond = function()
+            return require("nvim-possession").status() ~= nil
+        end,
+      },
+    },
   },
   inactive_sections = {
     lualine_c = { { "filename", path = 1 } },

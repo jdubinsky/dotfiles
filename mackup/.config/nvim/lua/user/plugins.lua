@@ -19,7 +19,7 @@ require("lazy").setup({
   --     tag = '0.1.6',
   --     dependencies = { 'nvim-lua/plenary.nvim' }
   -- },
-  "nvim-lua/plenary.nvim",
+  -- "nvim-lua/plenary.nvim",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
@@ -64,21 +64,21 @@ require("lazy").setup({
           "ibhagwan/fzf-lua",
       },
       config = true,
-      init = function()
-          local possession = require("nvim-possession")
-          vim.keymap.set("n", "<leader>sl", function()
-              possession.list()
-          end)
-          vim.keymap.set("n", "<leader>sn", function()
-              possession.new()
-          end)
-          vim.keymap.set("n", "<leader>su", function()
-              possession.update()
-          end)
-          vim.keymap.set("n", "<leader>sd", function()
-              possession.delete()
-          end)
-      end,
+      -- init = function()
+      --     local possession = require("nvim-possession")
+      --     vim.keymap.set("n", "<leader>sl", function()
+      --         possession.list()
+      --     end)
+      --     vim.keymap.set("n", "<leader>sn", function()
+      --         possession.new()
+      --     end)
+      --     vim.keymap.set("n", "<leader>su", function()
+      --         possession.update()
+      --     end)
+      --     vim.keymap.set("n", "<leader>sd", function()
+      --         possession.delete()
+      --     end)
+      -- end,
   },
   -- {
   -- 'rmagatti/auto-session',
