@@ -66,6 +66,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # create dir structure for neovim
 mkdir -p ~/.config/nvim/
+mkdir -p ~/.local/share/nvim/sessions/
 
 # dotfiles
 ln -sf ~/dotfiles/mackup/.config/nvim/init.lua ~/.config/nvim/init.lua
