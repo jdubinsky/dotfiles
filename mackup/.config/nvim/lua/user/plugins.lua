@@ -14,12 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   "nvim-tree/nvim-web-devicons",
   "Mofiqul/dracula.nvim",
-  -- {
-  --   'nvim-telescope/telescope.nvim',
-  --     tag = '0.1.6',
-  --     dependencies = { 'nvim-lua/plenary.nvim' }
-  -- },
-  -- "nvim-lua/plenary.nvim",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
@@ -31,15 +25,10 @@ require("lazy").setup({
   "hrsh7th/nvim-cmp",
   {'kevinhwang91/nvim-bqf', ft = 'qf'},
   { "ibhagwan/fzf-lua", branch = "main" },
-  -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  -- { 'nvim-telescope/telescope-fzy-native.nvim', build = 'make' },
-  {
     'stevearc/oil.nvim',
     opts = {},
-    -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  -- "natecraddock/telescope-zf-native.nvim",
   "antoinemadec/FixCursorHold.nvim",
   "vim-test/vim-test",
   "numToStr/Comment.nvim",
