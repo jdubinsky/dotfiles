@@ -1,8 +1,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 # export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 
 if [ -n "$SPIN" ]
@@ -14,6 +14,7 @@ then
     export PATH="$(yarn global bin):$PATH"
     alias devr='dev up && dev restart --procs'
 else
+    alias shopcd='cd ~/src/github.com/Shopify/shopify/areas/core/shopify'
     export BUNDLE_PATH=$GEM_HOME
     # alias sqlopen="open mysql://root@$(spin info fqdn)"
     [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
@@ -78,7 +79,7 @@ export EDITOR=nvim
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-# eval "$(pyenv init -)"
+eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 

@@ -1,55 +1,22 @@
 # /Users/jdubinsky/.config/tmuxinator/core.yml
 
 name: core
-root: /Users/jdubinsky/src/github.com/Shopify/shopify/
-
-# Optional tmux socket
-# socket_name: foo
-
-# Note that the pre and post options have been deprecated and will be replaced by
-# project hooks.
-
-# Project hooks
-
-# Runs on project start, always
-# on_project_start: command
-
-# Run on project start, the first time
-# on_project_first_start: command
-
-# Run on project start, after the first time
-# on_project_restart: command
-
-# Run on project exit ( detaching from tmux session )
-# on_project_exit: command
-
-# Run on project stop
-# on_project_stop: command
-
-# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
-
-# Pass command line options to tmux. Useful for specifying a different tmux.conf.
-# tmux_options: -f ~/.tmux.mac.conf
-
-# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
-# tmux_command: byobu
-
-# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-# startup_window: editor
-
-# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
-
-# Controls whether the tmux session should be attached to automatically. Defaults to true.
-# attach: false
+root: /Users/jdubinsky/src/github.com/Shopify/shopify/areas/core/shopify
 
 windows:
   - editor:
-      layout: main-vertical
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
+      layout: main-horizontal
       panes:
         - nvim
-  - server: dev s
+  - server:
+      layout: tiled
+      panes:
+        - dev s
+        - bin/job-worker --pod-ids -1,0,1,-2,-3 --workers "3" --queues realtime,default,low,canary,maintenance,shipping_rates,payment,checkout_completion
+        - FEATURE_SET=default PRIVACY_LEVEL=default VERBOSE_HEDWIG=true bin/recurring-job-scheduler --pod-ids -1,0,1,-2,-3
+        - VERBOSE_HEDWIG=true bin/delayed-job-enqueuer --pod-ids -1,0,1,-2,-3
+  - web:
+      root: /Users/jdubinsky/src/github.com/Shopify/web/areas/clients/admin-web
+      layout: tiled
+      panes:
+        - dev s
