@@ -16,69 +16,96 @@ require("lazy").setup({
   "Mofiqul/dracula.nvim",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
-  "neovim/nvim-lspconfig",
-  { "akinsho/toggleterm.nvim", version = "*" },
-  "folke/trouble.nvim",
+    "neovim/nvim-lspconfig",  
   "nvim-treesitter/nvim-treesitter",
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/nvim-cmp",
-  {'kevinhwang91/nvim-bqf', ft = 'qf'},
-  { "ibhagwan/fzf-lua", branch = "main" },
   {
     'stevearc/oil.nvim',
-    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    lazy = false,
+  },
+  {
+    "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  {'kevinhwang91/nvim-bqf', ft = 'qf'},
   "antoinemadec/FixCursorHold.nvim",
   "vim-test/vim-test",
-  "numToStr/Comment.nvim",
-  "nvim-lualine/lualine.nvim",
-  "andymass/vim-matchup",
   "github/copilot.vim",
-  -- {
-  --   "https://git.sr.ht/~swaits/zellij-nav.nvim",
-  --   lazy = true,
-  --   event = "VeryLazy",
-  --   keys = {
-  --     { "<c-h>", "<cmd>ZellijNavigateLeft<cr>",  { silent = true, desc = "navigate left"  } },
-  --     { "<c-j>", "<cmd>ZellijNavigateDown<cr>",  { silent = true, desc = "navigate down"  } },
-  --     { "<c-k>", "<cmd>ZellijNavigateUp<cr>",    { silent = true, desc = "navigate up"    } },
-  --     { "<c-l>", "<cmd>ZellijNavigateRight<cr>", { silent = true, desc = "navigate right" } },
-  --   },
-  --   opts = {},
-  -- },
-  {
-    "gennaro-tedesco/nvim-possession",
-    dependencies = {
-        "ibhagwan/fzf-lua",
-    },
-    config = true,
-    init = function()
-        local possession = require("nvim-possession")
-        vim.keymap.set("n", "<leader>sl", function()
-            possession.list()
-        end)
-        vim.keymap.set("n", "<leader>sn", function()
-            possession.new()
-        end)
-        vim.keymap.set("n", "<leader>su", function()
-            possession.update()
-        end)
-        vim.keymap.set("n", "<leader>sd", function()
-            possession.delete()
-        end)
-    end,
-  },
-  -- {
-  -- 'rmagatti/auto-session',
-  --   lazy = false,
-  --   ---enables autocomplete for opts
-  --   ---@module "auto-session"
-  --   ---@type AutoSession.Config
-  --   opts = {
-  --     suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-  --     -- log_level = 'debug',
-  --   }
-  -- }
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
+  { 'echasnovski/mini.nvim', version = false },
 })
+
+require('mini.ai').setup()
+require('mini.completion').setup()
+require('mini.comment').setup()
+require('mini.pairs').setup()
+require('mini.bufremove').setup()
+require('mini.clue').setup()
+local pick = require('mini.pick')
+pick.setup()
+local extras = require('mini.extra')
+extras.setup()
+require('mini.sessions').setup({
+  directory = '~/.sessions',
+  file = '',
+})
+require('mini.visits').setup()
+local minident = require('mini.indentscope')
+minident.setup({
+  draw = {
+    animation = minident.gen_animation.none(),
+  }
+})
+require('mini.statusline').setup()
+require('mini.trailspace').setup()
+require('mini.colors').setup()
+local files = require('mini.files')
+files.setup()
+
+local starter = require('mini.starter')
+starter.setup({
+  items = {
+    starter.sections.sessions(5, true),
+    starter.sections.recent_files(5, false, false),
+  }
+})
+
+vim.ui.select = MiniPick.ui_select
+
+pick.registry.git_files_ignore = function(opts)
+  return pick.builtin.files(vim.tbl_deep_extend('force', {
+    command = { 'git', 'ls-files', '--exclude-standard', '--cached', '--others', '--', ':!*.js', ':!*.rbi', ':!*.html' },
+    cwd = vim.fn.getcwd(),
+  }, opts or {}))
+end
+
+-- vim.keymap.set('n', '<C-p>', function()
+--   pick.registry.git_files_ignore()
+--   -- pick.builtin.files({ tool = 'git' })
+-- end, { desc = 'Search Git files' })
+
+pick.registry.git_grep = function(opts)
+  return pick.builtin.grep_live(vim.tbl_deep_extend('force', {
+    command = { 'git', 'grep', '--line-number', '--column', '--color=never', '--', ':!*.js', ':!*.rbi' }
+  }, opts or {}))
+end
+
+-- vim.keymap.set('n', '<leader>ff', '<cmd>lua MiniFiles.open()<cr>', {desc = 'Open mini.files'})
+--
+vim.keymap.set('n', '<leader>ff', function()
+  require("mini.files").open(vim.uv.cwd(), true)
+end, {desc = 'Open mini.files (cwd)'})
+
+-- vim.keymap.set('n', '<leader>g', function()
+--   pick.registry.git_grep()
+-- end, { desc = 'Search Git files' })
+
+vim.keymap.set('n', '<leader>ws', function()
+  local session_name = vim.fn.input('Session Name: ') -- Prompt for session name
+  if session_name ~= '' then
+    require('mini.sessions').write(session_name, { force = true })
+    print('Session saved as: ' .. session_name)
+  else
+    print('Session creation canceled.')
+  end
+end, { desc = 'Write a new session' })

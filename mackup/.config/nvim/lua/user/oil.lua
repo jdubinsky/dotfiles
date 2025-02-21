@@ -1,3 +1,3 @@
 require("oil").setup()
 
-vim.api.nvim_set_keymap("n", "<leader>o", 'Oil', { silent = true, expr = true })
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

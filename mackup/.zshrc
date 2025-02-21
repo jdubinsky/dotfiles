@@ -14,7 +14,7 @@ then
     export PATH="$(yarn global bin):$PATH"
     alias devr='dev up && dev restart --procs'
 else
-    alias shopcd='cd ~/src/github.com/Shopify/shopify/areas/core/shopify'
+    alias shopcd='dev cd //areas/core/shopify'
     export BUNDLE_PATH=$GEM_HOME
     # alias sqlopen="open mysql://root@$(spin info fqdn)"
     [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh

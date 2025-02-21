@@ -1,13 +1,9 @@
 # /Users/jdubinsky/.config/tmuxinator/core.yml
 
 name: core
-root: /Users/jdubinsky/src/github.com/Shopify/shopify/areas/core/shopify
+root: /Users/jdubinsky/world/trees/root/src/areas/core/shopify
 
 windows:
-  - editor:
-      layout: main-horizontal
-      panes:
-        - nvim
   - server:
       layout: tiled
       panes:
