@@ -11,12 +11,33 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local ruby_version = vim.fn.executable "ruby" == 1 and vim.fn.system('ruby -e "puts RUBY_VERSION"'):gsub("\n", "")
+  or nil
+
 require("lazy").setup({
   "nvim-tree/nvim-web-devicons",
   "Mofiqul/dracula.nvim",
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",  
+   "neovim/nvim-lspconfig",
+   {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      -- Hack to have different installations depending on ruby version
+      -- Ideally mason would manage gem installations differently
+      if ruby_version ~= nil then
+        local path = require "mason-core.path"
+        opts.install_root_dir = path.concat { tostring(vim.fn.stdpath "data"), "mason", "ruby", ruby_version }
+        vim.notify("setting mason dir to " .. opts.install_root_dir)
+      else
+        vim.notify("`ruby` is not executable. Using default Mason installation directory.", vim.log.levels.WARN)
+      end
+      return opts
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+  },
+  -- "neovim/nvim-lspconfig",  
   "nvim-treesitter/nvim-treesitter",
   {
     'stevearc/oil.nvim',
@@ -27,6 +48,26 @@ require("lazy").setup({
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  {
+    'saghen/blink.cmp',
+    version = '*',
+    opts = {
+      -- 'default' for mappings similar to built-in completion
+      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+      -- See the full "keymap" documentation for information on defining your own keymap.
+      keymap = { preset = 'default' },
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
+      },
+
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+    },
+    opts_extend = { "sources.default" }
+  },
   {'kevinhwang91/nvim-bqf', ft = 'qf'},
   "antoinemadec/FixCursorHold.nvim",
   "vim-test/vim-test",
@@ -36,7 +77,7 @@ require("lazy").setup({
 })
 
 require('mini.ai').setup()
-require('mini.completion').setup()
+-- require('mini.completion').setup()
 require('mini.comment').setup()
 require('mini.pairs').setup()
 require('mini.bufremove').setup()

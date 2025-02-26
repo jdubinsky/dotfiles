@@ -29,18 +29,22 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
--- local capabilities = require('blink.cmp').get_lsp_capabilities()
+vim.keymap.set("n", "<space>e", function()
+  vim.diagnostic.open_float(nil, { focusable = true })
+end)
+
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.ts_ls.setup({
   on_attach = on_attach,
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 lspconfig.graphql.setup({
   on_attach = on_attach,
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
@@ -60,19 +64,19 @@ end
 lspconfig.sorbet.setup({
   on_attach = on_attach,
   cmd = sorbet_cmd,
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 lspconfig.ruby_lsp.setup({
   on_attach = on_attach,
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 lspconfig.eslint.setup({
   on_attach = on_attach,
-  -- capabilities = capabilities,
+  capabilities = capabilities,
   -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
