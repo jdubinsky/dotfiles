@@ -14,6 +14,7 @@ set.completeopt = "menu,menuone,noselect"
 set.swapfile = false
 set.cindent = true
 
+vim.g.root_spec = { "lsp", "zone.nix", { ".git", "lua" }, "cwd" }
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- vim.g.clipboard = {

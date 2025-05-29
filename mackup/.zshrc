@@ -5,27 +5,31 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 # export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 
-if [ -n "$SPIN" ]
-then
-    alias shopcd='cd ~/src/github.com/Shopify/shopify'
-    alias shopu='update shopify--shopify'
-    alias update_nvim='cd ~/dotfiles && ./setup.sh --update-nvim && cd -'
-    alias tokenupdate='bundle config --global PKGS__SHOPIFY__IO "token:$(gsutil cat gs://dev-tokens/cloudsmith/shopify/gems/latest)"'
-    export PATH="$(yarn global bin):$PATH"
-    alias devr='dev up && dev restart --procs'
-else
-    alias shopcd='dev cd //areas/core/shopify'
-    export BUNDLE_PATH=$GEM_HOME
-    # alias sqlopen="open mysql://root@$(spin info fqdn)"
-    [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-    if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+alias shopcd='dev cd shopify'
+export BUNDLE_PATH=$GEM_HOME
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 
-    [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
 
-    [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
-fi
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+start_nvim() {
+    CURRENT_DIR=$(basename "$PWD")
+    SOCKET="/tmp/nvim-${CURRENT_DIR}"
+    nvim --listen "$SOCKET"
+}
+alias nvims='start_nvim'
+
+claude() {
+    local socket_path="/tmp/nvim-$(basename "$PWD")"
+    dev claude -- "my vim/neovim is listening at the socket $socket_path"
+}
+alias ai='claude'
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -91,3 +95,4 @@ fi
 
 # Created by `pipx` on 2024-06-03 18:45:48
 # export PATH="$PATH:/Users/jdubinsky/.local/bin"
+# export GT_SKIP_MERGE_BASE_CHECK=1

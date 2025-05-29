@@ -17,6 +17,7 @@ configs.setup {
     "http",
     "html",
     "python",
+    "query",
     "scss",
     "terraform",
     "vim",

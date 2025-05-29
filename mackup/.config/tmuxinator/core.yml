@@ -12,7 +12,11 @@ windows:
         - FEATURE_SET=default PRIVACY_LEVEL=default VERBOSE_HEDWIG=true bin/recurring-job-scheduler --pod-ids -1,0,1,-2,-3
         - VERBOSE_HEDWIG=true bin/delayed-job-enqueuer --pod-ids -1,0,1,-2,-3
   - web:
-      root: /Users/jdubinsky/src/github.com/Shopify/web/areas/clients/admin-web
+      root: /Users/jdubinsky/world/trees/root/src/areas/clients/admin-web
       layout: tiled
       panes:
         - dev s
+  - nvim:
+    layout: tiled
+    panes:
+      - nvim

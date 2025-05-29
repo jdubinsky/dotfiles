@@ -5,15 +5,18 @@ local servers = {
   "graphql",
   "jsonls",
   "yamlls",
-	"ruby_lsp",
-	"sorbet",
+  ruby_lsp = {
+    filetypes = { "ruby" },
+  },
+  -- sorbet = {
+  --   filetypes = { "ruby" },
+  -- },
   "ts_ls",
 }
 
-require("mason-lspconfig").setup({ ensure_installed = servers, automatic_installation = true })
+-- require("mason-lspconfig").setup({ ensure_installed = servers, automatic_installation = true })
+local lspconfig = require("lspconfig")
 
-local mason_lspconfig = require("mason-lspconfig")
-mason_lspconfig.setup()
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
@@ -48,19 +51,38 @@ vim.keymap.set("n", "<space>e", function()
   vim.diagnostic.open_float(nil, { focusable = true })
 end)
 
-mason_lspconfig.setup {
-  ensure_installed = servers,
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     require("lspconfig")[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = on_attach,
+--       -- settings = servers[server_name],
+--       filetypes = (servers[server_name] or {}).filetypes,
+--       cmd = (servers[server_name] or {}).cmd,
+--     }
+--   end
+-- }
+
+-- Handled in lspconfig.lua now
+
+lspconfig.lua_ls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require("lspconfig")[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end
+lspconfig.graphql.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lspconfig.jsonls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lspconfig.yamlls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 vim.diagnostic.config({

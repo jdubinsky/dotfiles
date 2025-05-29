@@ -1,52 +1,38 @@
-local lspconfig = require('lspconfig')
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    local opts = { buffer = bufnr, silent = true }
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  local opts = { noremap=true, silent=true }
-
-  -- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', '<space>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- buf_set_keymap('n', '<space>gd', '<Cmd>split <bar> Telescope lsp_definitions<CR>', opts)
-  -- buf_set_keymap('n', '<space>gd', '<cmd>Telescope lsp_definitions<cr>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-end
+    vim.keymap.set('n', '<space>gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+    vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
+  end,
+})
 
 vim.keymap.set("n", "<space>e", function()
   vim.diagnostic.open_float(nil, { focusable = true })
 end)
 
-local capabilities = require('blink.cmp').get_lsp_capabilities()
--- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lspconfig.ts_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-})
+vim.lsp.enable('ts_ls')
 
-lspconfig.graphql.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-})
+vim.lsp.enable('graphql')
 
 function file_exists(name)
   local f=io.open(name,"r")
@@ -54,30 +40,26 @@ function file_exists(name)
 end
 
 local local_srb_exists = file_exists("./bin/srb")
+local sorbet_cmd = {}
 
-if local_srb_exists then
-  sorbet_cmd = { "./bin/srb", "tc", "--lsp" }
-else
-  sorbet_cmd = { "srb", "tc", "--lsp" }
-end
+-- if local_srb_exists then
+--   sorbet_cmd = { "./bin/srb", "tc", "--lsp", "your_input_directory" }
+-- else
+--   sorbet_cmd = { "srb", "tc", "--lsp", "your_input_directory" }
+-- end
 
-lspconfig.sorbet.setup({
-  on_attach = on_attach,
-  cmd = sorbet_cmd,
-  capabilities = capabilities,
-  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+vim.lsp.enable('sorbet')
+vim.lsp.config('sorbet', {
+  filetypes = { 'ruby', 'eruby' },
+  -- root_dir = require('lspconfig').util.root_pattern('sorbet/', '.git'),
+  mason = false,
+  -- cmd = { vim.fn.expand("~/.gem/ruby/ruby-3.2.2/bin/srb") },
 })
 
-lspconfig.ruby_lsp.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-})
-
-lspconfig.eslint.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  -- capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+vim.lsp.enable('ruby_lsp')
+vim.lsp.config('ruby_lsp', {
+  mason = false,
+  -- cmd = { vim.fn.expand("~/.gem/ruby/ruby-3.2.2/bin/ruby-lsp") },
 })
 
 vim.opt.signcolumn = "yes"

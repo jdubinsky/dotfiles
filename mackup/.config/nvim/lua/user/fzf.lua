@@ -2,6 +2,7 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 require'fzf-lua'.setup {
+  "fzf-native",
   -- ignore all '.lua' and '.vim' files
   file_ignore_patterns = { "%.rbi$" }
 }

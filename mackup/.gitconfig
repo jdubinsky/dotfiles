@@ -2,17 +2,7 @@
 [user]
 	name = Jacob Dubinsky
 	email = jacob.dubinsky@shopify.com
-[push]
-	default = current
-[alias]
-	srbgrep = "!git grep \"$@\" -- \"${GIT_PREFIX}/*\" #"
-[difftool]
-	prompt = true
-[diff]
-	tool = nvimdiff
-[difftool "nvimdiff"]
-	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [include]
 	path = /Users/jdubinsky/.config/dev/gitconfig
-[submodule]
-	recurse = true
+[maintenance]
+	repo = /Users/jdubinsky/world/trees/root/src

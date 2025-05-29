@@ -17,32 +17,17 @@ local ruby_version = vim.fn.executable "ruby" == 1 and vim.fn.system('ruby -e "p
 require("lazy").setup({
   "nvim-tree/nvim-web-devicons",
   "Mofiqul/dracula.nvim",
-   "neovim/nvim-lspconfig",
-   {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      -- Hack to have different installations depending on ruby version
-      -- Ideally mason would manage gem installations differently
-      if ruby_version ~= nil then
-        local path = require "mason-core.path"
-        opts.install_root_dir = path.concat { tostring(vim.fn.stdpath "data"), "mason", "ruby", ruby_version }
-        vim.notify("setting mason dir to " .. opts.install_root_dir)
-      else
-        vim.notify("`ruby` is not executable. Using default Mason installation directory.", vim.log.levels.WARN)
-      end
-      return opts
-    end,
+  { 
+    "neovim/nvim-lspconfig",
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
-  },
-  -- "neovim/nvim-lspconfig",  
   "nvim-treesitter/nvim-treesitter",
   {
     'stevearc/oil.nvim',
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
     lazy = false,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
   },
   {
     "ibhagwan/fzf-lua",
@@ -58,20 +43,29 @@ require("lazy").setup({
       -- See the full "keymap" documentation for information on defining your own keymap.
       keymap = { preset = 'default' },
 
-      appearance = {
-        use_nvim_cmp_as_default = true,
-      },
-
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
       },
     },
     opts_extend = { "sources.default" }
   },
   {'kevinhwang91/nvim-bqf', ft = 'qf'},
   "antoinemadec/FixCursorHold.nvim",
-  "vim-test/vim-test",
-  "github/copilot.vim",
+  {
+    "zbirenbaum/copilot.lua",
+    config = function()
+      require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = { accept = "<C-j>" },
+        },
+      })
+    end
+  },
   {'akinsho/toggleterm.nvim', version = "*", config = true},
   { 'echasnovski/mini.nvim', version = false },
 })
