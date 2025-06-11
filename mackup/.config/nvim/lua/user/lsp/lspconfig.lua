@@ -42,25 +42,35 @@ end
 local local_srb_exists = file_exists("./bin/srb")
 local sorbet_cmd = {}
 
--- if local_srb_exists then
---   sorbet_cmd = { "./bin/srb", "tc", "--lsp", "your_input_directory" }
--- else
---   sorbet_cmd = { "srb", "tc", "--lsp", "your_input_directory" }
--- end
+if local_srb_exists then
+  sorbet_cmd = { "./bin/srb", "tc", "--lsp" }
+else
+  sorbet_cmd = { "srb", "tc", "--lsp" }
+end
 
 vim.lsp.enable('sorbet')
 vim.lsp.config('sorbet', {
   filetypes = { 'ruby', 'eruby' },
-  -- root_dir = require('lspconfig').util.root_pattern('sorbet/', '.git'),
+  -- cmd = { "srb", "tc", "--lsp", "--ignore=ruby/" },
+  -- cmd = { "direnv", "exec", ".", "./bin/srb", "tc", "--lsp" },
+  -- cmd = { "direnv", "exec", ".", "bin/srb", "tc", "--lsp" },
+  -- cmd = { "shadowenv", "exec", "--", "bin/srb", "tc", "--lsp" },
+  -- cmd = { "direnv", "exec", ".", "srb", "tc", "--ignore=ruby/", "--lsp" },
+  -- cmd = { "shadowenv", "exec", "--", "bundle", "exec", "srb", "tc", "--lsp" },
+  -- cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
+  -- cmd = { "nix-shell", "--run", "srb tc --lsp" },
+  -- root_dir = function(fname)
+  --   return vim.fs.dirname(vim.fs.find({'shell.nix', 'default.nix', '.git'}, { upward = true })[1])
+  -- end,
   mason = false,
-  -- cmd = { vim.fn.expand("~/.gem/ruby/ruby-3.2.2/bin/srb") },
 })
 
 vim.lsp.enable('ruby_lsp')
-vim.lsp.config('ruby_lsp', {
-  mason = false,
-  -- cmd = { vim.fn.expand("~/.gem/ruby/ruby-3.2.2/bin/ruby-lsp") },
-})
+-- vim.lsp.config('ruby_lsp', {
+  -- mason = false,
+  -- cmd = { "shadowenv", "exec", "--", "ruby-lsp" },
+  -- cmd = { "direnv", "exec", ".", "ruby-lsp" },
+-- })
 
 vim.opt.signcolumn = "yes"
 

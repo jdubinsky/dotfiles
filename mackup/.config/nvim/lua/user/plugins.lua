@@ -34,6 +34,19 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
+    "mason-org/mason.nvim",
+    opts = {}
+  },
+  { "Shopify/shadowenv.vim" },
+  -- {
+  --   "mason-org/mason-lspconfig.nvim",
+  --   opts = {},
+  --   dependencies = {
+  --       { "mason-org/mason.nvim", opts = {} },
+  --       "neovim/nvim-lspconfig",
+  --   },
+  -- },
+  {
     'saghen/blink.cmp',
     version = '*',
     opts = {

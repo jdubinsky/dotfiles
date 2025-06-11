@@ -6,7 +6,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 
 alias shopcd='dev cd shopify'
-export BUNDLE_PATH=$GEM_HOME
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
@@ -55,7 +54,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 DISABLE_AUTO_TITLE="true"
 
-[ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh  ] && source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
+# [ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh  ] && source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
 
 alias zj='zellij'
 alias ls='ls -lGH'
@@ -87,7 +86,7 @@ eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
 
-[[ -x chruby ]] && chruby 3.2.2
+# [[ -x chruby ]] && chruby 3.2.2
 
 if type atuin > /dev/null; then
   eval "$(atuin init zsh)"
