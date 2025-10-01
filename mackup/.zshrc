@@ -6,6 +6,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 
 alias shopcd='dev cd shopify'
+alias gtup='gt co main && gt get && dev up'
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 

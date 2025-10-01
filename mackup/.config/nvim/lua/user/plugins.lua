@@ -15,6 +15,31 @@ local ruby_version = vim.fn.executable "ruby" == 1 and vim.fn.system('ruby -e "p
   or nil
 
 require("lazy").setup({
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      -- dashboard = { enabled = true },
+      -- explorer = { enabled = true },
+      -- indent = { enabled = true },
+      -- input = { enabled = true },
+      -- picker = { enabled = true },
+      -- notifier = { enabled = true },
+      quickfile = { enabled = true },
+      -- scope = { enabled = true },
+      -- scroll = { enabled = true },
+      -- statuscolumn = { enabled = true },
+      -- words = { enabled = true },
+      image = { enabled = true },
+      lazygit = { enabled = true },
+    },
+  },
   "nvim-tree/nvim-web-devicons",
   "Mofiqul/dracula.nvim",
   { 
@@ -72,6 +97,8 @@ require("lazy").setup({
     "zbirenbaum/copilot.lua",
     config = function()
       require("copilot").setup({
+        -- /Users/jdubinsky/.nvm/versions/node/v23.10.0/bin/node
+        copilot_node_command = vim.fn.expand("$HOME") .. "/.nvm/versions/node/v23.10.0/bin/node", -- Node.js version must be > 20
         suggestion = {
           auto_trigger = true,
           keymap = { accept = "<C-j>" },
@@ -80,7 +107,14 @@ require("lazy").setup({
     end
   },
   {'akinsho/toggleterm.nvim', version = "*", config = true},
-  { 'echasnovski/mini.nvim', version = false },
+  { 'nvim-mini/mini.nvim', version = false },
+  {
+      'MeanderingProgrammer/render-markdown.nvim',
+      dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+      ---@module 'render-markdown'
+      ---@type render.md.UserConfig
+      opts = {},
+  },
 })
 
 require('mini.ai').setup()

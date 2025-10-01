@@ -17,6 +17,7 @@ function TestCurrentLine()
   local file_path = vim.fn.expand('%:p')
   local line_num = vim.api.nvim_win_get_cursor(0)[1]
   local cmd = ("dev test %s:%d"):format(file_path, line_num)
+  -- local cmd = ("bin/rails test %s:%d"):format(file_path, line_num)
 
   -- Get the terminal with id 1 (change if you use a different id)
   local term_id = 1
@@ -34,6 +35,7 @@ end
 function TestCurrentFile()
   local file_path = vim.fn.expand('%:p')
   local cmd = ("dev test %s"):format(file_path)
+  -- local cmd = ("bin/rails test %s"):format(file_path)
 
   -- Get the terminal with id 1 (change if you use a different id)
   local term_id = 1
