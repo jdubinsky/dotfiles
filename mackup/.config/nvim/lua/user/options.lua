@@ -18,6 +18,8 @@ set.completeopt = "menu,menuone,noselect"
 -- set.colorcolumn = 120
 set.swapfile = false
 set.cindent = true
+-- set.list = true
+-- set.listchars = { trail = '·', nbsp = '␣' }
 
 -- vim.g.root_spec = { "lsp", "zone.nix", { ".git", "lua" }, "cwd" }
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

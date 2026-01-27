@@ -29,6 +29,8 @@ vim.keymap.set("n", "<space>e", function()
   vim.diagnostic.open_float(nil, { focusable = true })
 end)
 
+vim.lsp.enable('gopls')
+vim.lsp.enable('golangci_lint_ls')
 
 vim.lsp.enable('ts_ls')
 
@@ -70,6 +72,27 @@ vim.lsp.enable('ruby_lsp')
   -- mason = false,
   -- cmd = { "shadowenv", "exec", "--", "ruby-lsp" },
   -- cmd = { "direnv", "exec", ".", "ruby-lsp" },
+-- })
+
+
+vim.lsp.enable('eslint')
+-- vim.lsp.config('eslint', {
+--   cmd = { 'vscode-eslint-language-server', '--stdio' },
+--   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'json' },
+--   root_dir = function(fname)
+--     return vim.fn.getcwd()
+--   end,
+--   settings = {
+--     eslint = {
+--       enable = true,
+--       packageManager = 'npm',
+--       useESLintClass = true,
+--       nodePath = '/opt/homebrew/lib/node_modules',
+--       options = {
+--         resolvePluginsRelativeTo = '/opt/homebrew/lib/node_modules',
+--       }
+--     }
+--   }
 -- })
 
 vim.opt.signcolumn = "yes"
