@@ -12,7 +12,6 @@ Plug 'kassio/neoterm'
 Plug 'folke/trouble.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
 " {{{ lsp
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -98,8 +97,6 @@ command! -bang -nargs=* GGrep
 nnoremap <c-p> <cmd>lua require('fzf-lua').files()<CR>
 " nnoremap <c-p> <cmd>lua require('fzf-lua').git_files()<CR>
 nnoremap <LocalLeader>g <cmd>lua require('fzf-lua').live_grep({ cmd = "git grep --line-number --column --color=always" })<CR>
-
-vnoremap <leader>c :OSCYank<CR>
 
 " vim-test
 nmap <silent> <Leader>t :TestNearest<CR>

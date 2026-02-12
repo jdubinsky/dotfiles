@@ -36,6 +36,8 @@ vim.lsp.enable('ts_ls')
 
 vim.lsp.enable('graphql')
 
+vim.lsp.enable('yamllint')
+
 function file_exists(name)
   local f=io.open(name,"r")
   if f~=nil then io.close(f) return true else return false end

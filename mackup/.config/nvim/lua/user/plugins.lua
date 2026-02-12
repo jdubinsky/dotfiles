@@ -19,6 +19,7 @@ require("lazy").setup({
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    -- version = "v2.13.0", -- uncomment to pin to specific version if needed
     ---@type snacks.Config
     opts = {
       -- your configuration comes here
@@ -38,6 +39,16 @@ require("lazy").setup({
       -- words = { enabled = true },
       image = { enabled = true },
       lazygit = { enabled = true },
+      terminal = {
+        enabled = true,
+        win = {
+          style = "terminal",
+          position = "float",
+          border = "rounded",
+          height = 0.9,
+          width = 0.9,
+        },
+      },
     },
   },
   "nvim-tree/nvim-web-devicons",
@@ -86,7 +97,7 @@ require("lazy").setup({
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
 
-      fuzzy = { implementation = "prefer_rust_with_warning" },
+      fuzzy = { implementation = "lua" },
       -- appearance = {
       --   use_nvim_cmp_as_default = true,
       -- },
@@ -165,7 +176,14 @@ require("lazy").setup({
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
     opts = {
-      terminal_cmd = "devx claude",
+      terminal_cmd = "devx claude --continue",
+      terminal = {
+        enabled = true,
+        win = {
+          position = "float",
+          border = "rounded",
+        },
+      },
     },
     config = true,
     keys = {

@@ -17,15 +17,16 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "<C-o>", "<C-\\><C-n>", opts)
 
--- copy + paste
-keymap("n", "<Leader>y", '"*y', opts)
-keymap("n", "<Leader>p", '"*p', opts)
-keymap("n", "<Leader>Y", '"+y', opts)
-keymap("n", "<Leader>P", '"+p', opts)
-keymap("v", "<Leader>y", '"*y', opts)
-keymap("v", "<Leader>p", '"*p', opts)
+-- copy + paste to system clipboard
+keymap("n", "<Leader>y", '"+y', opts)
+keymap("n", "<Leader>p", '"+p', opts)
+keymap("n", "<Leader>Y", '"+yy', opts)
+keymap("n", "<Leader>P", '"+P', opts)
+-- Visual mode - yank to system clipboard
+keymap("v", "<Leader>y", '"+y', opts)
+keymap("v", "<Leader>p", '"+p', opts)
 keymap("v", "<Leader>Y", '"+y', opts)
-keymap("v", "<Leader>P", '"+p', opts)
+keymap("v", "<Leader>P", '"+P', opts)
 
 -- quickfix
 -- keymap("n", "<leader>q", ":copen<CR>", opts)

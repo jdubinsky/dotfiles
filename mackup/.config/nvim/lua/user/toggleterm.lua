@@ -57,7 +57,7 @@ function get_nearest_function_name()
     local node_type = node:type()
     print("DEBUG: checking node type = " .. vim.inspect(node_type))
 
-    if node_type == "function_declaration" then
+    if node_type == "function_declaration" or node_type == "method_declaration" then
       local name_node = node:field("name")[1]
       if name_node then
         local func_name = vim.treesitter.get_node_text(name_node, bufnr)
