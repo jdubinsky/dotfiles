@@ -1,86 +1,64 @@
-#!/bin/zsh
+#!/bin/bash
 
-update_nvim_flag=false;
+set -e
 
-zparseopts -E -D -- -update-nvim=update_nvim_flag
+DOTFILES_DIR="$HOME/projects/dotfiles"
+BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-rm nvim.appimage && rm -rf squashfs-root
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage &&
-  chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract &&
-  sudo cp -rp squashfs-root/usr/* /usr
+# Colors for output
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-if [ -n "$update_nvim_flag" ]
-then
-    source ~/.zshrc
-    echo "nvim udpated, exiting";
-    exit;
+echo -e "${GREEN}Setting up dotfiles...${NC}"
+
+# Create backup directory
+mkdir -p "$BACKUP_DIR"
+echo -e "${YELLOW}Backup directory: $BACKUP_DIR${NC}"
+
+# Function to backup and symlink
+backup_and_link() {
+  local src="$1"
+  local dest="$2"
+
+  # Backup existing file/directory if it exists and is not a symlink
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    echo "Backing up $dest"
+    mv "$dest" "$BACKUP_DIR/"
+  elif [ -L "$dest" ]; then
+    echo "Removing old symlink $dest"
+    rm "$dest"
+  fi
+
+  # Create parent directory if needed
+  mkdir -p "$(dirname "$dest")"
+
+  # Create symlink
+  echo "Linking $src -> $dest"
+  ln -sf "$src" "$dest"
+}
+
+# Backup and symlink dotfiles
+echo -e "\n${GREEN}Creating symlinks...${NC}"
+
+# Neovim
+backup_and_link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+
+# Zsh
+backup_and_link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+backup_and_link "$DOTFILES_DIR/.oh-my-zsh" "$HOME/.oh-my-zsh"
+
+# Tmux
+backup_and_link "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
+
+# Atuin (shell history)
+backup_and_link "$DOTFILES_DIR/atuin" "$HOME/.config/atuin"
+
+# Git config (if exists)
+if [ -f "$DOTFILES_DIR/.gitconfig" ]; then
+  backup_and_link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 fi
 
-# install required packages
-if ! command -v rg &> /dev/null; then
-  sudo apt-get install -y ripgrep
-  sudo apt-get install -y fd
-fi
-
-# zellij
-wget -O zellij.tar.gz 'https://github.com/zellij-org/zellij/releases/download/v0.40.1/zellij-x86_64-unknown-linux-musl.tar.gz'
-tar -xvzf zellij.tar.gz
-chmod +x zellij
-sudo mv zellij /usr/local/bin
-
-# lazygit
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-tar xf lazygit.tar.gz lazygit
-sudo install lazygit /usr/local/bin
-
-sudo apt install -y fd-find
-
-FZF_VERSION=0.35.1
-wget https://github.com/junegunn/fzf/releases/download/$FZF_VERSION/fzf-$FZF_VERSION-linux_amd64.tar.gz &&
-  tar xvzf fzf-$FZF_VERSION-linux_amd64.tar.gz && sudo mv fzf /usr/local/bin/fzf
-
-# zellij
-sudo apt-get install -y zellij
-
-# oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# fonts
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Cousine.zip
-mkdir -p ~/.local/share/fonts
-unzip Cousine.zip -d ~/.local/share/fonts
-rm ~/.local/share/fonts/*Windows*
-rm Cousine.zip
-fc-cache -fv
-
-# gems
-gem install sorbet ruby-lsp neovim activesupport
-
-# lsp
-npm install -g typescript-language-server graphql-language-service-cli eslint eslint_d
-
-# vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-# create dir structure for neovim
-mkdir -p ~/.config/nvim/
-mkdir -p ~/.local/share/nvim/sessions/
-
-# dotfiles
-ln -sf ~/dotfiles/mackup/.config/nvim/init.lua ~/.config/nvim/init.lua
-ln -sf ~/dotfiles/mackup/.config/nvim/lua ~/.config/nvim/lua
-ln -sf ~/dotfiles/mackup/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.pryrc ~/.pryrc
-ln -sf ~/dotfiles/.fdignore ~/.fdignore
-ln -sf ~/dotfiles/mackup/.tmux.conf ~/.tmux.conf
-ln -sf ~/dotfiles/config.kdl ~/.config/zellij/config.kdl
-
-# install neovim plugins
-nvim --headless +PlugInstall +qall
-
-git config --global commit.gpgSign true
-
-# reload with plugins
-source ~/.zshrc
+echo -e "\n${GREEN}✓ Dotfiles setup complete!${NC}"
+echo -e "${YELLOW}Backed up files are in: $BACKUP_DIR${NC}"
+echo -e "\nRun 'source ~/.zshrc' to reload your shell configuration."
