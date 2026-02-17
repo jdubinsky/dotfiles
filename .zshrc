@@ -1,34 +1,69 @@
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+# export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
+
+alias shopcd='dev cd shopify'
+alias gtup='gt co main && gt get && dev up'
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
+
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
+
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+start_nvim() {
+    CURRENT_DIR=$(basename "$PWD")
+    SOCKET="/tmp/nvim-${CURRENT_DIR}"
+    nvim --listen "$SOCKET"
+}
+alias nvims='start_nvim'
+
+claude() {
+    local socket_path="/tmp/nvim-$(basename "$PWD")"
+    dev claude -- "my vim/neovim is listening at the socket $socket_path"
+}
+alias ai='claude'
+
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+
+plugins=(
+    git
+    gitfast
+    macos
+    docker
+    docker-compose
+    python
+    # pyenv
+    cp
+    rails
+    ruby
+    tmux
+    vi-mode
+    zsh-navigation-tools
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+DISABLE_AUTO_TITLE="true"
 
-source ~/.fzf.zsh
+# [ -f $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh  ] && source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
 
+alias zj='zellij'
 alias ls='ls -lGH'
 alias g='git'
 alias gcleanupbr='g br | grep -v develop | grep -v master | xargs git branch -D'
+alias gprune='git remote prune origin'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
-
-plugins=(
-    gitfast
-    osx
-    python
-    yarn
-    tmux
-    tmuxinator
-    npm
-    npx
-    cp
-    rails
-    ruby
-    vi-mode
-    zsh-navigation-tools
-)
 
 ggrep() {
   git grep "$1"  -- './*' ":!$2"
@@ -40,19 +75,24 @@ fe() {
   [[ -n "$files" ]] && nvim "${files[@]}"
 }
 
-export TERM="screen-256color"
+export TERM="xterm-256color"
 export EDITOR=nvim
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init -)"
-# fi
 
-[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-if [ -e /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jdubinsky/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/projects/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/projects/google-cloud-sdk/path.zsh.inc"; fi
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/projects/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/projects/google-cloud-sdk/completion.zsh.inc"; fi
+eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+export PATH=$PATH:$(npm get prefix)/bin:/opt/homebrew/bin
+
+# [[ -x chruby ]] && chruby 3.2.2
+
+if type atuin > /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
+# Created by `pipx` on 2024-06-03 18:45:48
+# export PATH="$PATH:/Users/jdubinsky/.local/bin"
+# export GT_SKIP_MERGE_BASE_CHECK=1
