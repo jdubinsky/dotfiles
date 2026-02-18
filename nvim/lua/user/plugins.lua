@@ -265,7 +265,7 @@ require("lazy").setup({
     commit = "93f8e48", -- Pin to version before terminal focus issue
     dependencies = { "folke/snacks.nvim" },
     opts = {
-      terminal_cmd = "devx claude --resume",
+      terminal_cmd = "devx claude",  -- Default: new session
       terminal = {
         enabled = true,
         win = {
@@ -277,10 +277,10 @@ require("lazy").setup({
     config = true,
     keys = {
       { "<leader>a", nil, desc = "AI/Claude Code" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "New Claude session" },
       { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume last session" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue last session" },
     },
   },
 })

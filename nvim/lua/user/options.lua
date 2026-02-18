@@ -21,3 +21,12 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.expandtab = false  -- Go uses real tabs
   end,
 })
+
+-- Diagnostic configuration (show inline error messages)
+vim.diagnostic.config({
+  virtual_text = true,  -- Show diagnostics inline
+  signs = true,         -- Show signs in the gutter
+  underline = true,     -- Underline problematic code
+  update_in_insert = false,  -- Don't update diagnostics while typing
+  severity_sort = true,      -- Sort by severity
+})

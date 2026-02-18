@@ -30,6 +30,7 @@ vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
 
 -- LSP keybindings
 vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic info' })
 
 -- Clear search highlighting with Esc
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlighting' })
