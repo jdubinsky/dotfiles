@@ -91,6 +91,7 @@ require("lazy").setup({
         "rust_analyzer", -- Rust
         "pyright",     -- Python
         "yamlls",      -- YAML
+        "ruby_lsp",    -- Ruby
       },
       automatic_installation = true,
     },
@@ -151,13 +152,19 @@ require("lazy").setup({
         },
       })
       vim.lsp.enable('yamlls')
+
+      vim.lsp.config('ruby_lsp', {
+        cmd = { 'ruby-lsp' },
+        root_markers = { 'Gemfile', '.ruby-version', '.git' },
+      })
+      vim.lsp.enable('ruby_lsp')
     end,
   },
 
   -- Completion
   {
     'saghen/blink.cmp',
-    version = 'v0.*',  -- Use pre-built binaries
+    version = 'v1.*',  -- Use pre-built binaries
     opts = {
       keymap = { preset = 'default' },
       sources = {
@@ -244,6 +251,9 @@ require("lazy").setup({
     end,
   },
 
+  -- Sessions scoped by cwd
+  { "folke/persistence.nvim", opts = {} },
+
   -- Mini.nvim (for features snacks doesn't have)
   {
     "nvim-mini/mini.nvim",
@@ -253,7 +263,6 @@ require("lazy").setup({
       require('mini.comment').setup()
       require('mini.pairs').setup()
       require('mini.bufremove').setup()
-      require('mini.sessions').setup({ directory = '~/.sessions', file = '' })
       require('mini.statusline').setup()
       require('mini.trailspace').setup()
     end,

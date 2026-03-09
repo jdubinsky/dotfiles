@@ -23,6 +23,9 @@ vim.keymap.set('n', '<leader>n', '<cmd>ToggleTerm<cr>', { desc = 'Toggle termina
 vim.keymap.set('n', '<C-p>', function()
   require('fzf-lua').files()
 end, { desc = 'Fuzzy find files' })
+vim.keymap.set('n', '<leader>g', function()
+  require('fzf-lua').live_grep({ rg_opts = '--column --line-number --no-heading --color=always -i' })
+end, { desc = 'Live grep files' })
 
 -- Copy to system clipboard
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Copy to system clipboard' })

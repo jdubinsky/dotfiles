@@ -5,6 +5,8 @@ vim.g.maplocalleader = " "
 -- Basic options
 vim.opt.number = true
 vim.opt.termguicolors = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- Tab settings
 vim.opt.tabstop = 4        -- Display tabs as 4 spaces
